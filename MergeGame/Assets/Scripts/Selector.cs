@@ -3,45 +3,21 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class Selector : MonoBehaviour
+public class Selector : MonoSingleton<Selector>
 {
-    public List<Tile> tileList;
+    [Header("Tile")]
+    [HideInInspector]
+    public List<Tile> activeTileList;
 
     private Tile firstTile = null;
     private Tile lastTile = null;
-    private Entity currentEntity = null;
 
+    [Header("Entity")]
     [SerializeField]
     private Entity primitiveEntityPrefab = null;
+    private Entity currentEntity = null;
 
     private int randomCall;
-
-    [SerializeField]
-    private Tile tilePrefab;
-    [SerializeField]
-    private Transform tileParent;
-    private void Awake()
-    {
-        GenerateTile();
-    }
-
-    private void GenerateTile()
-    {
-        float x = -3;
-        float y = 3;
-        for (int i = 0; i < 7; i++)
-        {
-            for (int j = 0; j < 7; j++)
-            {
-                Tile newTile = Instantiate(tilePrefab, tileParent);
-                newTile.transform.position = new Vector3(x, y, 0);
-                tileList.Add(newTile);
-                x++;
-            }
-            x = -3;
-            y--;
-        }
-    }
 
     void Update()
     {
@@ -49,9 +25,9 @@ public class Selector : MonoBehaviour
         {
             float nearestDistance = float.MaxValue;
 
-            for (int i = 0; i < tileList.Count; i++)
+            for (int i = 0; i < activeTileList.Count; i++)
             {
-                Tile tile = tileList[i];
+                Tile tile = activeTileList[i];
                 float distance = Vector2.Distance(tile.transform.position,
                     Camera.main.ScreenToWorldPoint(Input.mousePosition));
 
@@ -79,9 +55,9 @@ public class Selector : MonoBehaviour
         {
             float nearestDistance = float.MaxValue;
 
-            for (int i = 0; i < tileList.Count; i++)
+            for (int i = 0; i < activeTileList.Count; i++)
             {
-                Tile tile = tileList[i];
+                Tile tile = activeTileList[i];
                 float distance = Vector2.Distance(tile.transform.position,
                     Camera.main.ScreenToWorldPoint(Input.mousePosition));
 
@@ -96,8 +72,6 @@ public class Selector : MonoBehaviour
             {
                 firstTile.Clear();
                 lastTile.SetEntity(currentEntity);
-                currentEntity.transform.position = lastTile.transform.position;
-                currentEntity.transform.parent = lastTile.transform;
                 currentEntity = null;
             }
             else
@@ -106,8 +80,6 @@ public class Selector : MonoBehaviour
                 {
                     firstTile.Clear();
                     lastTile.SetEntity(currentEntity);
-                    //currentEntity.transform.position = lastTile.transform.position;
-                    //currentEntity.transform.parent = lastTile.transform;
                     currentEntity = null;
                 }
                 else
@@ -123,28 +95,31 @@ public class Selector : MonoBehaviour
         randomCall = 0;
         Tile randomTile = GetRandomTile();
         Entity generatedEntity = randomTile ? Instantiate(primitiveEntityPrefab, randomTile.transform) : null;
-        generatedEntity?.ResetPosition();
         randomTile?.SetEntity(generatedEntity);
+    }
+
+    public void AddTile(Tile tile)
+    {
+        if (!activeTileList.Contains(tile))
+        {
+            activeTileList.Add(tile);
+        }
     }
 
     private Tile GetRandomTile()
     {
-        if (randomCall < tileList.Count)
+        if (randomCall < activeTileList.Count)
         {
-            Tile randomTile = tileList[Random.Range(0, tileList.Count)];
+            Tile randomTile = activeTileList[Random.Range(0, activeTileList.Count)];
             if (randomTile.GetIsFull())
             {
+                randomCall++;
                 return GetRandomTile();
             }
-            else
-            {
-                return randomTile;
-            }
-        }
-        else
-        {
-            return null;
+            randomCall++;
+            return randomTile;
         }
         randomCall++;
+        return null;
     }
 }

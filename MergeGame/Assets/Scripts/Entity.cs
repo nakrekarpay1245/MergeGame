@@ -14,10 +14,12 @@ public class Entity : MonoBehaviour
 
     public void ResetPosition()
     {
-        transform.localPosition = Vector3.zero;
+        transform.localPosition = Vector3.up * 0.5f;
     }
+
     public void SetParent(Transform _transform)
     {
         transform.parent = _transform;
+        ResetPosition();
     }
 }

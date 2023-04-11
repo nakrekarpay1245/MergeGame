@@ -4,14 +4,17 @@ using UnityEngine;
 
 public class Tile : MonoBehaviour
 {
-    public List<Entity> entityList;
-    public Entity currentEntity;
-    private bool isFull;
+    [Header("Entity List")]
+    [SerializeField]
+    private List<Entity> entityList;
 
+    private Entity currentEntity;
+
+    [Header("Tile Visualize")]
     [SerializeField]
-    private Color emptyColor;
+    private Sprite emptyTileSprite;
     [SerializeField]
-    private Color fullColor;
+    private Sprite fullTileSprite;
 
     private SpriteRenderer spriteRenderer;
 
@@ -27,43 +30,28 @@ public class Tile : MonoBehaviour
     {
         if (entity)
         {
-            Debug.Log("SetEntity " + entity.name);
-        }
-        else
-        {
-            Debug.Log("Null Entity ");
-        }
-        isFull = entity;
-        spriteRenderer.color = isFull ? fullColor : emptyColor;
-
-        if (currentEntity)
-        {
-            entityLevel = currentEntity.GetEntityLevel();
-            if (entity)
+            if (currentEntity)
             {
-                if (currentEntity.GetEntityLevel() == entity.GetEntityLevel())
-                {
-                    currentEntity.gameObject.SetActive(false);
-                    entity.gameObject.SetActive(false);
+                currentEntity.gameObject.SetActive(false);
+                entity.gameObject.SetActive(false);
 
-                    Clear();
-                    Entity newEntity = Instantiate(entityList[entityLevel + 1]);
-                    SetEntity(newEntity);
+                Clear();
 
-                    Debug.Log("Level Up Tile: " + (entityLevel + 1));
-                }
+                Entity newEntity = Instantiate(entityList[entityLevel + 1]);
+                SetEntity(newEntity);
             }
-        }
-        else
-        {
-            Debug.Log("Else " + name);
-
-            if (entity)
+            else
             {
                 currentEntity = entity;
                 currentEntity.SetParent(transform);
-                currentEntity.ResetPosition();
+                entityLevel = currentEntity.GetEntityLevel();
             }
+
+            spriteRenderer.sprite = GetIsFull() ? fullTileSprite : emptyTileSprite;
+        }
+        else
+        {
+            Debug.LogWarning("The entity is null!");
         }
     }
 
@@ -74,13 +62,12 @@ public class Tile : MonoBehaviour
 
     public void Clear()
     {
-        isFull = false;
         currentEntity = null;
-        spriteRenderer.color = emptyColor;
+        spriteRenderer.sprite = emptyTileSprite;
     }
 
     public bool GetIsFull()
     {
-        return isFull;
+        return currentEntity;
     }
 }
