@@ -32,6 +32,9 @@ public class Tile : MonoBehaviour
         {
             if (currentEntity)
             {
+                // COMBINE
+                ParticleManager.singleton.PlayParticleAtPoint(transform.position);
+                AudioManager.singleton.PlaySound("TileSFX");
                 currentEntity.gameObject.SetActive(false);
                 entity.gameObject.SetActive(false);
 
@@ -42,6 +45,9 @@ public class Tile : MonoBehaviour
             }
             else
             {
+                // SET
+                ParticleManager.singleton.PlayParticleAtPoint(transform.position);
+                AudioManager.singleton.PlaySound("TileSFX");
                 currentEntity = entity;
                 currentEntity.SetParent(transform);
                 entityLevel = currentEntity.GetEntityLevel();

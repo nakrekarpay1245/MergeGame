@@ -48,6 +48,21 @@ public class Selector : MonoSingleton<Selector>
                 Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                 Vector2 entityPosition = new Vector3(mousePosition.x, mousePosition.y, 0);
                 currentEntity.transform.position = entityPosition;
+
+                float nearestDistance = float.MaxValue;
+
+                for (int i = 0; i < activeTileList.Count; i++)
+                {
+                    Tile tile = activeTileList[i];
+                    float distance = Vector2.Distance(tile.transform.position,
+                        Camera.main.ScreenToWorldPoint(Input.mousePosition));
+
+                    if (distance < nearestDistance)
+                    {
+                        nearestDistance = distance;                        
+                        lastTile = tile;
+                    }
+                }
             }
         }
 
@@ -94,7 +109,8 @@ public class Selector : MonoSingleton<Selector>
     {
         randomCall = 0;
         Tile randomTile = GetRandomTile();
-        Entity generatedEntity = randomTile ? Instantiate(primitiveEntityPrefab, randomTile.transform) : null;
+        Entity generatedEntity = randomTile ?
+            Instantiate(primitiveEntityPrefab, randomTile.transform) : null;
         randomTile?.SetEntity(generatedEntity);
     }
 
