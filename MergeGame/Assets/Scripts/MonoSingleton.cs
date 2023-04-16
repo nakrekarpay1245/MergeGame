@@ -6,12 +6,9 @@ public abstract class MonoSingleton<T> : MonoBehaviour where T : MonoSingleton<T
 
     protected virtual void OnEnable()
     {
-        //Debug.Log("Base awake");
-
         if (!singleton)
         {
             singleton = (T)this;
-            //DontDestroyOnLoad(gameObject);
         }
         else if (singleton != this)
         {

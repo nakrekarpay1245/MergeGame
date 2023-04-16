@@ -1,0 +1,675 @@
+fileFormatVersion: 2
+guid: 4b2f9bbab50d52f458569d8cef5ca234
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 12
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMasterTextureLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 1024
+    resizeAlgorithm: 0
+    textureFormat: 47
+    textureCompression: 1
+    compressionQuality: 100
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 1
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Sheet_Fruits_StandAlone_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 288.75
+        width: 96
+        height: 96.25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b2f8dfef128521344b2f7c3ed7e31466
+      internalID: -1747371289
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sheet_Fruits_StandAlone_1
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 288.75
+        width: 96
+        height: 96.25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0b00c040868295646be9aa6c4e5ada6f
+      internalID: 768666450
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sheet_Fruits_StandAlone_2
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 288.75
+        width: 96
+        height: 96.25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 077517f0ed2a269488ebc855f9f4af0c
+      internalID: -95246567
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sheet_Fruits_StandAlone_3
+      rect:
+        serializedVersion: 2
+        x: 288
+        y: 288.75
+        width: 96
+        height: 96.25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 56e9b426c75c64f42ad4b686ee5def1f
+      internalID: -471859151
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sheet_Fruits_StandAlone_4
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 288.75
+        width: 96
+        height: 96.25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: daafa19c0f652c34a9b52b33e4d115f7
+      internalID: -2076524355
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sheet_Fruits_StandAlone_5
+      rect:
+        serializedVersion: 2
+        x: 480
+        y: 288.75
+        width: 96
+        height: 96.25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f14260d384232c34f9e7fe70e0fd7ded
+      internalID: 119154830
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sheet_Fruits_StandAlone_6
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 192.75
+        width: 96
+        height: 96.25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5cf01002323327f4394cd2d0b733bd8e
+      internalID: -24476818
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sheet_Fruits_StandAlone_7
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 192.75
+        width: 96
+        height: 96.25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4a3ce594c04e59348886ddfc83daaa47
+      internalID: -263167992
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sheet_Fruits_StandAlone_8
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 192.75
+        width: 96
+        height: 96.25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 877d5a01c7dbbd34a8447e36845272f3
+      internalID: -691501746
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sheet_Fruits_StandAlone_9
+      rect:
+        serializedVersion: 2
+        x: 288
+        y: 192.75
+        width: 96
+        height: 96.25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a47356ea88db2e44c9f37d6c9cae524c
+      internalID: -494202865
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sheet_Fruits_StandAlone_10
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 192.75
+        width: 96
+        height: 96.25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1fcc17388e1a9894dafc0f1bc53f62f5
+      internalID: 1943961360
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sheet_Fruits_StandAlone_11
+      rect:
+        serializedVersion: 2
+        x: 480
+        y: 192.75
+        width: 96
+        height: 96.25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3608a5e20211d2747ba4de16612f40fc
+      internalID: -744822838
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sheet_Fruits_StandAlone_12
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 96.75
+        width: 96
+        height: 96.25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c9b65e19b4ea16d4f90c2eddb2b85b80
+      internalID: 464386111
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sheet_Fruits_StandAlone_13
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 96.75
+        width: 96
+        height: 96.25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d897c8ab65f8ae04baaa93ad99aaac5e
+      internalID: 1810039137
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sheet_Fruits_StandAlone_14
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 96.75
+        width: 96
+        height: 96.25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f117b9d2cc2dc1a4fa34d41ec0dc3a2a
+      internalID: -308015552
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sheet_Fruits_StandAlone_15
+      rect:
+        serializedVersion: 2
+        x: 288
+        y: 96.75
+        width: 96
+        height: 96.25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c9f20ffd993bbfd4b898d77c6bdd7d76
+      internalID: -1723239164
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sheet_Fruits_StandAlone_16
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 96.75
+        width: 96
+        height: 96.25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 464349310ee33554e801d76d51a30feb
+      internalID: -636407817
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sheet_Fruits_StandAlone_17
+      rect:
+        serializedVersion: 2
+        x: 480
+        y: 96.75
+        width: 96
+        height: 96.25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7d4317226f9e0f141801c38a04a64ca4
+      internalID: -762800680
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sheet_Fruits_StandAlone_18
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0.75
+        width: 96
+        height: 96.25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 726947c635b1e9a4683fc8c5ed6afd02
+      internalID: 1205883624
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sheet_Fruits_StandAlone_19
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 0.75
+        width: 96
+        height: 96.25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 46d684111b8a788458221979249e1c6d
+      internalID: -1572968106
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sheet_Fruits_StandAlone_20
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 0.75
+        width: 96
+        height: 96.25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 278f5086a8ce83e46839e31e92d4ccdd
+      internalID: 1478707751
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sheet_Fruits_StandAlone_21
+      rect:
+        serializedVersion: 2
+        x: 288
+        y: 0.75
+        width: 96
+        height: 96.25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8d6608be85f550b4a8ffdfc7e3ee1b63
+      internalID: -1195431524
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sheet_Fruits_StandAlone_22
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 0.75
+        width: 96
+        height: 96.25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: be635dd23ac4a4944a8f1312d4616b8f
+      internalID: -852230955
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sheet_Fruits_StandAlone_23
+      rect:
+        serializedVersion: 2
+        x: 480
+        y: 0.75
+        width: 96
+        height: 96.25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: da25a124689ff1a4a9d7e7a0adadd0de
+      internalID: 1613203615
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      Sheet_Fruits_StandAlone_8: -691501746
+      Sheet_Fruits_StandAlone_15: -1723239164
+      Sheet_Fruits_StandAlone_6: -24476818
+      Sheet_Fruits_StandAlone_11: -744822838
+      Sheet_Fruits_StandAlone_18: 1205883624
+      Sheet_Fruits_StandAlone_1: 768666450
+      Sheet_Fruits_StandAlone_22: -852230955
+      Sheet_Fruits_StandAlone_20: 1478707751
+      Sheet_Fruits_StandAlone_13: 1810039137
+      Sheet_Fruits_StandAlone_12: 464386111
+      Sheet_Fruits_StandAlone_10: 1943961360
+      Sheet_Fruits_StandAlone_3: -471859151
+      Sheet_Fruits_StandAlone_7: -263167992
+      Sheet_Fruits_StandAlone_9: -494202865
+      Sheet_Fruits_StandAlone_19: -1572968106
+      Sheet_Fruits_StandAlone_14: -308015552
+      Sheet_Fruits_StandAlone_5: 119154830
+      Sheet_Fruits_StandAlone_21: -1195431524
+      Sheet_Fruits_StandAlone_16: -636407817
+      Sheet_Fruits_StandAlone_17: -762800680
+      Sheet_Fruits_StandAlone_0: -1747371289
+      Sheet_Fruits_StandAlone_23: 1613203615
+      Sheet_Fruits_StandAlone_4: -2076524355
+      Sheet_Fruits_StandAlone_2: -95246567
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

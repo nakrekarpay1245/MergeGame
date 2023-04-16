@@ -41,3 +41,15 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Background
+    uniqueID: 4046887321
+    locked: 0
+  - name: DeactiveEntity
+    uniqueID: 3064934757
+    locked: 0
+  - name: ActiveEntity
+    uniqueID: 1671718645
+    locked: 0
+  - name: VFXs
+    uniqueID: 350328335
+    locked: 0

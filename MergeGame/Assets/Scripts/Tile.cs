@@ -26,6 +26,14 @@ public class Tile : MonoBehaviour
         SetEntity(GetComponentInChildren<Entity>());
     }
 
+    /// <summary>
+    /// This method sets the entity for the tile. If there is already a current entity,
+    /// it combines the two entities, plays particle effect and sound, and creates a new 
+    /// entity with a higher level. Otherwise, it just sets the current entity, plays particle
+    /// effect and sound, and sets the entity level. Finally, it updates the sprite of the 
+    /// tile based on whether it's full or empty
+    /// </summary>
+    /// <param name="entity"></param>
     public void SetEntity(Entity entity)
     {
         if (entity)
@@ -55,23 +63,32 @@ public class Tile : MonoBehaviour
 
             spriteRenderer.sprite = GetIsFull() ? fullTileSprite : emptyTileSprite;
         }
-        else
-        {
-            Debug.LogWarning("The entity is null!");
-        }
     }
 
+    /// <summary>
+    /// This method returns the current entity attached to the tile
+    /// </summary>
+    /// <returns></returns>
     public Entity GetEntity()
     {
         return currentEntity;
     }
 
+    /// <summary>
+    /// This function clears the current entity on the tile, making it empty, and sets the tile
+    /// sprite to the emptyTileSprite
+    /// </summary>
     public void Clear()
     {
         currentEntity = null;
         spriteRenderer.sprite = emptyTileSprite;
     }
 
+    /// <summary>
+    /// This function returns a boolean value indicating whether the tile is currently holding
+    /// an entity or not. If there is an entity present, it returns true, otherwise it returns false
+    /// </summary>
+    /// <returns></returns>
     public bool GetIsFull()
     {
         return currentEntity;

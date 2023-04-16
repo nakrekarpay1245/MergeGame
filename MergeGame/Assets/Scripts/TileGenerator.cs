@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,7 +12,7 @@ public class TileGenerator : MonoSingleton<TileGenerator>
     [SerializeField]
     private Transform tileParent;
     [SerializeField]
-    private Vector2 tileMatris;
+    private Vector2Int tileMatris;
 
     [SerializeField]
     private float distanceBetweenTiles = 1.5f;
@@ -20,10 +21,16 @@ public class TileGenerator : MonoSingleton<TileGenerator>
         GenerateTile();
     }
 
+    /// <summary>
+    /// Generates a grid of tiles with the given dimensions and spacing
+    /// The tiles are instantiated from the provided prefab and added to the tileParent transform
+    /// Each tile is positioned using x and y coordinates, which are updated after each iteration
+    /// The Selector singleton is updated with each newly created tile
+    /// </summary>
     private void GenerateTile()
     {
-        float x = -(tileMatris.x / (2 / distanceBetweenTiles));
-        float y = (tileMatris.x / (2 / distanceBetweenTiles));
+        float x = (-(tileMatris.x / (2 / distanceBetweenTiles))) + 0.5f;
+        float y = ((tileMatris.x / (2 / distanceBetweenTiles))) - 1;
         for (int i = 0; i < tileMatris.x; i++)
         {
             for (int j = 0; j < tileMatris.y; j++)
@@ -33,7 +40,7 @@ public class TileGenerator : MonoSingleton<TileGenerator>
                 Selector.singleton.AddTile(newTile);
                 x += distanceBetweenTiles;
             }
-            x = -(tileMatris.x / (2 / distanceBetweenTiles));
+            x = (-(tileMatris.x / (2 / distanceBetweenTiles))) + 0.5f;
             y -= distanceBetweenTiles;
         }
     }

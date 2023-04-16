@@ -19,6 +19,10 @@ public class ParticleManager : MonoSingleton<ParticleManager>
         GenerateParticleSystems();
     }
 
+    /// <summary>
+    /// This method generates a number of particle systems based on the particle count variable.
+    /// It instantiates a prefab particle system and adds it to a list of particle systems.
+    /// </summary>
     private void GenerateParticleSystems()
     {
         for (int i = 0; i < particleCount; i++)
@@ -28,6 +32,13 @@ public class ParticleManager : MonoSingleton<ParticleManager>
         }
     }
 
+    /// <summary>
+    /// This script defines a method called PlayParticleAtPoint which takes a position vector as its parameter.
+    /// The method looks for a particle system in the list of available particles that is not currently 
+    /// playing and plays it at the specified position. If there are no available particles, the method simply
+    /// returns
+    /// </summary>
+    /// <param name="position"></param>
     public void PlayParticleAtPoint(Vector3 position)
     {
         // Find audio source which is not playing

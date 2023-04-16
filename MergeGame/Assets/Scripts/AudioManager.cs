@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -48,6 +49,13 @@ public class AudioManager : MonoSingleton<AudioManager>
     //    }
     //}
 
+    /// <summary>
+    /// Plays an audio clip with the given name, volume, and loop setting, using an available AudioSource.
+    /// If no AudioSource is available, logs a warning message and returns without playing the
+    /// </summary>
+    /// <param name="clipName"></param>
+    /// <param name="volume"></param>
+    /// <param name="loop"></param>
     public void PlaySound(string clipName, float volume = 1f, bool loop = false)
     {
         // Find audio source which is not playing
@@ -81,6 +89,13 @@ public class AudioManager : MonoSingleton<AudioManager>
         }
     }
 
+    /// <summary>
+    /// Plays an audio clip with the given clip reference, volume, and loop setting, using an available AudioSource.
+    /// If no AudioSource is available, logs a warning message and returns without playing the   
+    /// /// </summary>
+    /// <param name="clip"></param>
+    /// <param name="volume"></param>
+    /// <param name="loop"></param>
     public void PlaySound(AudioClip clip, float volume = 1f, bool loop = false)
     {
         // Find audio source which is not playing
@@ -108,6 +123,9 @@ public class AudioManager : MonoSingleton<AudioManager>
         activeSource.Play();
     }
 
+    /// <summary>
+    /// This function stops all audio playback from all audio sources in the audioSources list
+    /// </summary>
     public void StopAllSounds()
     {
         for (int i = 0; i < audioSources.Count; i++)

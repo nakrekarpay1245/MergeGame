@@ -1,10 +1,11 @@
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Selector : MonoSingleton<Selector>
 {
+    private const float minimumSelectionDistance = 0.75f;
+
     [Header("Tile")]
     [HideInInspector]
     public List<Tile> activeTileList;
@@ -17,76 +18,189 @@ public class Selector : MonoSingleton<Selector>
     private Entity primitiveEntityPrefab = null;
     private Entity currentEntity = null;
 
-    private int randomCall;
+    private int randomTileCallCount;
+
+    [Header("Auto Produce")]
+    [SerializeField]
+    private float autoProduceTime = 10;
+    private float produceTimer;
+
+    [Header("Auto Produce")]
+    [SerializeField]
+    private Image produceButtonFill;
+
+    //void Update()
+    //{
+    //    if (Input.GetMouseButtonDown(0))
+    //    {
+    //        SelectFirstTileEntity();
+    //    }
+
+    //    if (Input.GetMouseButton(0) && currentEntity)
+    //    {
+    //        MoveCurrentEntity();
+    //    }
+
+    //    if (Input.GetMouseButtonUp(0) && currentEntity)
+    //    {
+    //        SelectLastTile();
+
+    //        HandleEntityPlacement();
+
+    //        firstTile = null;
+    //        lastTile = null;
+    //        currentEntity = null;
+    //    }
+    //}
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.touchCount > 0)
         {
-            float nearestDistance = float.MaxValue;
+            Touch touch = Input.GetTouch(0);
 
-            for (int i = 0; i < activeTileList.Count; i++)
+            if (touch.phase == TouchPhase.Began)
             {
-                Tile tile = activeTileList[i];
-                float distance = Vector2.Distance(tile.transform.position,
-                    Camera.main.ScreenToWorldPoint(Input.mousePosition));
-
-                if (distance < nearestDistance)
-                {
-                    nearestDistance = distance;
-                    firstTile = tile;
-                }
+                SelectFirstTileEntity();
             }
-
-            currentEntity = firstTile.GetEntity();
-        }
-
-        if (Input.GetMouseButton(0) && currentEntity)
-        {
-            if (currentEntity)
+            else if (touch.phase == TouchPhase.Moved)
             {
-                Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-                Vector2 entityPosition = new Vector3(mousePosition.x, mousePosition.y, 0);
-                currentEntity.transform.position = entityPosition;
-
-                float nearestDistance = float.MaxValue;
-
-                for (int i = 0; i < activeTileList.Count; i++)
+                MoveCurrentEntity();
+            }
+            else if (touch.phase == TouchPhase.Ended)
+            {
+                SelectLastTile();
+                if (lastTile && firstTile && currentEntity)
                 {
-                    Tile tile = activeTileList[i];
-                    float distance = Vector2.Distance(tile.transform.position,
-                        Camera.main.ScreenToWorldPoint(Input.mousePosition));
-
-                    if (distance < nearestDistance)
-                    {
-                        nearestDistance = distance;                        
-                        lastTile = tile;
-                    }
+                    HandleEntityPlacement();
                 }
+                firstTile = null;
+                lastTile = null;
+                currentEntity = null;
             }
         }
 
-        if (Input.GetMouseButtonUp(0) && currentEntity)
+        CalculateProduceTimer();
+    }
+
+    private void CalculateProduceTimer()
+    {
+        if (produceTimer >= autoProduceTime)
         {
-            float nearestDistance = float.MaxValue;
+            produceTimer = 0;
+            ProduceEntity();
+        }
+        else
+        {
+            produceTimer += Time.deltaTime;
+        }
 
-            for (int i = 0; i < activeTileList.Count; i++)
+        DisplayProduceTimer();
+    }
+
+    private void DisplayProduceTimer()
+    {
+        produceButtonFill.fillAmount = produceTimer / autoProduceTime;
+    }
+
+    /// <summary>
+    /// Selects the first tile that the user clicks on and sets it as the starting 
+    /// point of a move operation.If the user's click is too far from any tiles, no 
+    /// tile is selected. If the selected tile is empty or has no entity, no entity 
+    /// is selected for the move operation.
+    /// </summary>
+    private void SelectFirstTileEntity()
+    {
+        Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        float nearestDistance = float.MaxValue;
+
+        for (int i = 0; i < activeTileList.Count; i++)
+        {
+            Tile tile = activeTileList[i];
+            float distance = Vector2.Distance(tile.transform.position, mousePosition);
+
+            if (distance < nearestDistance)
             {
-                Tile tile = activeTileList[i];
-                float distance = Vector2.Distance(tile.transform.position,
-                    Camera.main.ScreenToWorldPoint(Input.mousePosition));
-
-                if (distance < nearestDistance)
-                {
-                    nearestDistance = distance;
-                    lastTile = tile;
-                }
+                nearestDistance = distance;
+                firstTile = tile;
             }
+        }
 
+        if (nearestDistance > minimumSelectionDistance)
+        {
+            firstTile = null;
+            return;
+        }
+
+        currentEntity = firstTile.GetEntity();
+        currentEntity?.Select();
+    }
+
+    /// <summary>
+    /// This function moves the current Entity object to the position of the mouse cursor 
+    /// on the screen. If there is no current Entity, this function does nothing.
+    /// </summary>
+    private void MoveCurrentEntity()
+    {
+        if (currentEntity)
+        {
+            Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            Vector2 entityPosition = new Vector3(mousePosition.x, mousePosition.y, 0);
+            currentEntity.transform.position = entityPosition;
+        }
+    }
+
+    /// <summary>
+    /// This function selects the Tile object closest to the position of the mouse cursor
+    /// when the player releases the mouse button. It loops through all active Tile objects, 
+    /// calculates the distance between each Tile and the mouse position, and selects the 
+    /// Tile with the smallest distance. If the selected Tile is too far away or the same 
+    /// as the first selected Tile, the function resets the current Entity position and 
+    /// clears the lastTile variable
+    /// </summary>
+    private void SelectLastTile()
+    {
+        Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        float nearestDistance = float.MaxValue;
+
+        for (int i = 0; i < activeTileList.Count; i++)
+        {
+            Tile tile = activeTileList[i];
+            float distance = Vector2.Distance(tile.transform.position, mousePosition);
+
+            if (distance < nearestDistance)
+            {
+                nearestDistance = distance;
+                lastTile = tile;
+            }
+        }
+
+        if (nearestDistance > minimumSelectionDistance || firstTile == lastTile)
+        {
+            lastTile = null;
+            currentEntity?.ResetPosition();
+            return;
+        }
+    }
+
+    /// <summary>
+    /// This function handles the placement of the current Entity object on the last 
+    /// Tile object that the player interacted with. If the last Tile is empty, the 
+    /// Entity is placed on it and the first Tile is cleared. If the last Tile is already 
+    /// occupied, the function checks if the Entity occupying the Tile has the same level 
+    /// as the current Entity. If they have the same level, the current Entity replaces 
+    /// the previous Entity on the last Tile. If the levels are different, the function 
+    /// swaps the Entities between the first and last Tiles
+    /// </summary>
+    private void HandleEntityPlacement()
+    {
+        if (lastTile)
+        {
             if (!lastTile.GetIsFull())
             {
                 firstTile.Clear();
                 lastTile.SetEntity(currentEntity);
+                currentEntity?.Deselect();
                 currentEntity = null;
             }
             else
@@ -95,25 +209,50 @@ public class Selector : MonoSingleton<Selector>
                 {
                     firstTile.Clear();
                     lastTile.SetEntity(currentEntity);
+                    currentEntity.Deselect();
                     currentEntity = null;
                 }
                 else
                 {
-                    currentEntity.ResetPosition();
+                    Entity firstTileEntity = firstTile.GetEntity();
+
+                    firstTile.Clear();
+                    firstTile.SetEntity(lastTile.GetEntity());
+
+                    lastTile.Clear();
+                    lastTile.SetEntity(firstTileEntity);
+                    currentEntity.Deselect();
+                    currentEntity = null;
                 }
             }
         }
     }
 
-    public void ProduceEntity()
+
+    public void DecreseProduceTimer()
     {
-        randomCall = 0;
-        Tile randomTile = GetRandomTile();
+        produceTimer++;
+    }
+
+    /// <summary>
+    /// This function generates an Entity object and places it on a randomly selected
+    /// Tile object from the active Tile list. If there are no available Tile objects,
+    /// the Entity object will not be generated.
+    /// </summary>
+    private void ProduceEntity()
+    {
+        randomTileCallCount = 0;
+        Tile randomTile = activeTileList.Count > 0 ? GetRandomTile() : null;
         Entity generatedEntity = randomTile ?
             Instantiate(primitiveEntityPrefab, randomTile.transform) : null;
         randomTile?.SetEntity(generatedEntity);
     }
 
+    /// <summary>
+    /// This function adds the given Tile object to the active Tile list. 
+    /// If the Tile object is already in the list, it will not be added again
+    /// </summary>
+    /// <param name="tile"></param>
     public void AddTile(Tile tile)
     {
         if (!activeTileList.Contains(tile))
@@ -122,20 +261,26 @@ public class Selector : MonoSingleton<Selector>
         }
     }
 
+    /// <summary>
+    /// Returns a random empty Tile object. If the selected Tile is full,
+    /// the function tries to select a different Tile by recursively calling itself. 
+    /// If all Tiles are full, it returns a null value
+    /// </summary>
+    /// <returns></returns>
     private Tile GetRandomTile()
     {
-        if (randomCall < activeTileList.Count)
+        if (randomTileCallCount < activeTileList.Count)
         {
             Tile randomTile = activeTileList[Random.Range(0, activeTileList.Count)];
             if (randomTile.GetIsFull())
             {
-                randomCall++;
+                randomTileCallCount++;
                 return GetRandomTile();
             }
-            randomCall++;
+            randomTileCallCount++;
             return randomTile;
         }
-        randomCall++;
+        randomTileCallCount++;
         return null;
     }
 }
