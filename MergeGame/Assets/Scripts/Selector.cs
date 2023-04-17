@@ -29,6 +29,8 @@ public class Selector : MonoSingleton<Selector>
     [SerializeField]
     private Image produceButtonFill;
 
+    private Touch touch;
+
     //void Update()
     //{
     //    if (Input.GetMouseButtonDown(0))
@@ -55,9 +57,9 @@ public class Selector : MonoSingleton<Selector>
 
     void Update()
     {
-        if (Input.touchCount > 0)
+        if (Input.touchCount == 1)
         {
-            Touch touch = Input.GetTouch(0);
+            touch = Input.GetTouch(0);
 
             if (touch.phase == TouchPhase.Began)
             {
@@ -78,6 +80,10 @@ public class Selector : MonoSingleton<Selector>
                 lastTile = null;
                 currentEntity = null;
             }
+        }
+        else
+        {
+            currentEntity?.ResetPosition();
         }
 
         CalculateProduceTimer();
@@ -111,13 +117,13 @@ public class Selector : MonoSingleton<Selector>
     /// </summary>
     private void SelectFirstTileEntity()
     {
-        Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        Vector3 touchPosition = Camera.main.ScreenToWorldPoint(touch.position);
         float nearestDistance = float.MaxValue;
 
         for (int i = 0; i < activeTileList.Count; i++)
         {
             Tile tile = activeTileList[i];
-            float distance = Vector2.Distance(tile.transform.position, mousePosition);
+            float distance = Vector2.Distance(tile.transform.position, touchPosition);
 
             if (distance < nearestDistance)
             {
@@ -144,8 +150,8 @@ public class Selector : MonoSingleton<Selector>
     {
         if (currentEntity)
         {
-            Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            Vector2 entityPosition = new Vector3(mousePosition.x, mousePosition.y, 0);
+            Vector3 touchPosition = Camera.main.ScreenToWorldPoint(touch.position);
+            Vector2 entityPosition = new Vector3(touchPosition.x, touchPosition.y, 0);
             currentEntity.transform.position = entityPosition;
         }
     }
@@ -160,13 +166,13 @@ public class Selector : MonoSingleton<Selector>
     /// </summary>
     private void SelectLastTile()
     {
-        Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        Vector3 touchPosition = Camera.main.ScreenToWorldPoint(touch.position);
         float nearestDistance = float.MaxValue;
 
         for (int i = 0; i < activeTileList.Count; i++)
         {
             Tile tile = activeTileList[i];
-            float distance = Vector2.Distance(tile.transform.position, mousePosition);
+            float distance = Vector2.Distance(tile.transform.position, touchPosition);
 
             if (distance < nearestDistance)
             {
