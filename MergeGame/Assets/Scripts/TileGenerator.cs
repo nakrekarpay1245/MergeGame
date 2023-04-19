@@ -16,6 +16,7 @@ public class TileGenerator : MonoSingleton<TileGenerator>
 
     [SerializeField]
     private float distanceBetweenTiles = 1.5f;
+    private float distanceFromTop = 1.5f;
     private void Start()
     {
         GenerateTile();
@@ -30,7 +31,8 @@ public class TileGenerator : MonoSingleton<TileGenerator>
     private void GenerateTile()
     {
         float x = (-(tileMatris.x / (2 / distanceBetweenTiles))) + 0.5f;
-        float y = ((tileMatris.x / (2 / distanceBetweenTiles))) - 1;
+        float y = (tileMatris.x / (2 / distanceBetweenTiles)) - distanceFromTop;
+
         for (int i = 0; i < tileMatris.x; i++)
         {
             for (int j = 0; j < tileMatris.y; j++)

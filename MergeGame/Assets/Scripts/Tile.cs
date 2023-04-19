@@ -40,22 +40,19 @@ public class Tile : MonoBehaviour
         {
             if (currentEntity)
             {
-                // COMBINE
-                ParticleManager.singleton.PlayParticleAtPoint(transform.position);
-                AudioManager.singleton.PlaySound("TileSFX");
                 currentEntity.gameObject.SetActive(false);
                 entity.gameObject.SetActive(false);
 
                 Clear();
 
-                Entity newEntity = Instantiate(entityList[entityLevel + 1]);
-                SetEntity(newEntity);
+                Entity newEntity = Instantiate(entityList[entityLevel + 1], transform.position, Quaternion.identity);
+
+                currentEntity = newEntity;
+                currentEntity.SetParent(transform);
+                entityLevel = currentEntity.GetEntityLevel();
             }
             else
             {
-                // SET
-                ParticleManager.singleton.PlayParticleAtPoint(transform.position);
-                AudioManager.singleton.PlaySound("TileSFX");
                 currentEntity = entity;
                 currentEntity.SetParent(transform);
                 entityLevel = currentEntity.GetEntityLevel();
