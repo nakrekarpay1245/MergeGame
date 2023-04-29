@@ -2,38 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using UnityEngine.UI;
 
 public class HumanManager : MonoSingleton<HumanManager>
 {
-    private const float uiDelay = 0.35f;
-
-    [Header("HUMAN Body")]
-    [SerializeField]
-    private GameObject humanBody;
-
-    [Header("Hair")]
-    [SerializeField]
-    private SpriteRenderer hairImage;
-
     [Header("Hair")]
     [SerializeField]
     private List<Sprite> hairSpriteList;
-
-    [Header("Face")]
-    [SerializeField]
-    private SpriteRenderer faceImage;
-    [SerializeField]
-    private SpriteRenderer eyebrowLeftImage;
-    [SerializeField]
-    private SpriteRenderer eyebrowRightImage;
-    [SerializeField]
-    private SpriteRenderer eyeLeftImage;
-    [SerializeField]
-    private SpriteRenderer eyeRightImage;
-    [SerializeField]
-    private SpriteRenderer mouthImage;
-    [SerializeField]
-    private SpriteRenderer noiseImage;
 
     [Header("Face")]
     [SerializeField]
@@ -47,78 +22,65 @@ public class HumanManager : MonoSingleton<HumanManager>
 
     [Header("Shirt")]
     [SerializeField]
-    private SpriteRenderer shirtImage;
-
-    [Header("Shirt")]
-    [SerializeField]
     private List<Sprite> shirtSpriteList;
+    [Header("Shirt Arm")]
+    [SerializeField]
+    private List<Sprite> shirtArmSpriteList;
 
     [Header("Client Situation")]
     [Header("Mouth")]
     [SerializeField]
     private List<Sprite> happyMouthSpriteList;
-    [SerializeField]
-    private Sprite normalMouthSprite;
 
-    private void Start()
+    private int shirtIndex;
+    private int noiseIndex;
+    private int eyeIndex;
+
+    public Sprite GetRandomShirt()
     {
-        GenerateHumanFace();
+        // Randomly selects a shirt sprite and sets it on the shirt image component
+        shirtIndex = Random.Range(0, shirtSpriteList.Count);
+        return shirtSpriteList[shirtIndex];
     }
 
-    /// <summary>
-    /// Generates a random human face by setting the sprites of various image components
-    /// </summary>
-    public void GenerateHumanFace()
+    public Sprite GetRandomShirtArm()
     {
-        //Debug.Log("GenerateHumanFace");
+        // Randomly selects a shirtArm sprite and sets it on the shirtArt image component
+        return shirtArmSpriteList[shirtIndex];
+    }
 
-        // Animates the human body by scaling it down and then back up again
-        humanBody.transform.DOScale(0, uiDelay).OnComplete(() =>
-                   humanBody.transform.DOScale(1, uiDelay));
+    public Sprite GetRandomNoise()
+    {
+        // Randomly selects a nose sprite and sets it on the nose image component
+        noiseIndex = Random.Range(0, noiseSpriteList.Count);
+        return noiseSpriteList[noiseIndex];
+    }
 
-        // Randomly selects a hair sprite and sets it on the hair image component
-        int hairIndex = Random.Range(0, hairSpriteList.Count);
-        hairImage.sprite = hairSpriteList[hairIndex];
-
-        // Randomly selects a face sprite and sets it on the face image component
-        int faceIndex = Random.Range(0, faceSpriteList.Count);
-        faceImage.sprite = faceSpriteList[faceIndex];
-
-        // Randomly selects an eyebrow sprite and sets it on both eyebrow image components
-        int eyebrowIndex = Random.Range(0, eyebrowSpriteList.Count);
-        eyebrowLeftImage.sprite = eyebrowSpriteList[eyebrowIndex];
-        eyebrowRightImage.sprite = eyebrowSpriteList[eyebrowIndex];
-
+    public Sprite GetRandomEye()
+    {
         // Randomly selects an eye sprite and sets it on both eye image components
         int eyeIndex = Random.Range(0, eyeSpriteList.Count);
-        eyeLeftImage.sprite = eyeSpriteList[eyeIndex];
-        eyeRightImage.sprite = eyeSpriteList[eyeIndex];
-
-        // Randomly selects a nose sprite and sets it on the nose image component
-        int noiseIndex = Random.Range(0, noiseSpriteList.Count);
-        noiseImage.sprite = noiseSpriteList[noiseIndex];
-
-        // Randomly selects a shirt sprite and sets it on the shirt image component
-        int shirtIndex = Random.Range(0, shirtSpriteList.Count);
-        shirtImage.sprite = shirtSpriteList[shirtIndex];
-
-        NormalMouth();
+        return eyeSpriteList[eyeIndex];
     }
 
-    /// <summary>
-    /// Sets the mouth image sprite to a randomly selected sprite from the happy mouth sprite list
-    /// </summary>
-    public void HappyMouth()
+    public Sprite GetRandomEyebrow()
     {
-        int mouthIndex = Random.Range(0, happyMouthSpriteList.Count);
-        mouthImage.sprite = happyMouthSpriteList[mouthIndex];
+        // Randomly selects an eyebrow sprite and sets it on both eyebrow image components
+        int eyebrowIndex = Random.Range(0, eyebrowSpriteList.Count);
+        return eyebrowSpriteList[eyebrowIndex];
     }
 
-    /// <summary>
-    /// Sets the mouth image sprite to the normal mouth sprite
-    /// </summary>
-    public void NormalMouth()
+    public Sprite GetRandomFace()
     {
-        mouthImage.sprite = normalMouthSprite;
+        // Randomly selects a face sprite and sets it on the face image component
+        int faceIndex = Random.Range(0, faceSpriteList.Count);
+        return faceSpriteList[faceIndex];
+    }
+
+    public Sprite GetRandomHair()
+    {
+        // Randomly selects a hair sprite and sets it on the hair image component
+        int hairIndex = Random.Range(0, hairSpriteList.Count);
+        return hairSpriteList[hairIndex];
     }
 }

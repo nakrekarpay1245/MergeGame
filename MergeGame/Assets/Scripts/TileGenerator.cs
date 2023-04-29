@@ -1,8 +1,4 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class TileGenerator : MonoSingleton<TileGenerator>
 {
@@ -16,7 +12,8 @@ public class TileGenerator : MonoSingleton<TileGenerator>
 
     [SerializeField]
     private float distanceBetweenTiles = 1.5f;
-    private float distanceFromTop = 1.5f;
+    [SerializeField]
+    private float distanceFromTop = 2;
     private void Start()
     {
         GenerateTile();
@@ -30,19 +27,21 @@ public class TileGenerator : MonoSingleton<TileGenerator>
     /// </summary>
     private void GenerateTile()
     {
-        float x = (-(tileMatris.x / (2 / distanceBetweenTiles))) + 0.5f;
+        float x = (-(tileMatris.x / (2 / distanceBetweenTiles))) + (distanceBetweenTiles / 2);
         float y = (tileMatris.x / (2 / distanceBetweenTiles)) - distanceFromTop;
 
-        for (int i = 0; i < tileMatris.x; i++)
+        for (int i = 0; i < tileMatris.y; i++)
         {
-            for (int j = 0; j < tileMatris.y; j++)
+            for (int j = 0; j < tileMatris.x; j++)
             {
                 Tile newTile = Instantiate(tilePrefab, tileParent);
                 newTile.transform.position = new Vector3(x, y, 0);
-                Selector.singleton.AddTile(newTile);
+
+                TileManager.singleton.AddTile(newTile);
+
                 x += distanceBetweenTiles;
             }
-            x = (-(tileMatris.x / (2 / distanceBetweenTiles))) + 0.5f;
+            x = (-(tileMatris.x / (2 / distanceBetweenTiles))) + (distanceBetweenTiles / 2);
             y -= distanceBetweenTiles;
         }
     }

@@ -5,8 +5,6 @@ using UnityEngine;
 
 public class Entity : MonoBehaviour
 {
-    private const float uiDelay = 0.15f;
-
     [Header("Selection")]
     [SerializeField]
     private int activeTileSortingOrder;
@@ -24,6 +22,12 @@ public class Entity : MonoBehaviour
     private void Awake()
     {
         spriteRendererComponent = GetComponent<SpriteRenderer>();
+    }
+
+    private void Start()
+    {
+        transform.DOScale(0, 0);
+        transform.DOScale(1, TimeManager.singleton.GetUIDelay()).SetEase(Ease.Flash);
     }
 
     /// <summary>
@@ -46,20 +50,11 @@ public class Entity : MonoBehaviour
     /// Starts the SendRoutine coroutine and sets the sorting order of
     /// the sprite renderer component to the deactive tile sorting order
     /// </summary>
-    public void Send()
+    public void Send(Vector3 buttonPosition)
     {
-        StartCoroutine(SendRoutine());
+        SetParent(null);
+        transform.DOMove(buttonPosition, TimeManager.singleton.GetUIDelay());
         spriteRendererComponent.sortingOrder = deactiveTileSortingOrder;
-    }
-
-    /// <summary>
-    /// Moves the game object to a new position, waits for a delay, and then deactivates it
-    /// <summary>
-    private IEnumerator SendRoutine()
-    {
-        transform.DOMove(new Vector3(1, 3.5f, 0), uiDelay);
-        yield return new WaitForSeconds(uiDelay * 2);
-        gameObject.SetActive(false);
     }
 
     /// <summary>
@@ -86,7 +81,7 @@ public class Entity : MonoBehaviour
     /// </summary>
     public void ResetPosition()
     {
-        transform.DOLocalMove(Vector3.zero, uiDelay);
+        transform.DOLocalMove(Vector3.zero, TimeManager.singleton.GetUIDelay());
     }
 
     /// <summary>

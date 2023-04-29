@@ -122,7 +122,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 10.8, y: 10.8}
+    oldSize: {x: 0.72, y: 0.72}
     newSize: {x: 10.8, y: 10.8}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -143,24 +143,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c3c5d077778069841b333189e289e814, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  entityList:
-  - {fileID: 6972540361025622094, guid: dbe24f3c323109648840dab11b9fad25, type: 3}
-  - {fileID: 6972540361025622094, guid: a9d3e45878f728c45ad247bbc74c892b, type: 3}
-  - {fileID: 6972540361025622094, guid: b9c41316456a38444b24ea89294048d6, type: 3}
-  - {fileID: 6972540361025622094, guid: 17fc66a53532b584787284b491345204, type: 3}
-  - {fileID: 6972540361025622094, guid: f68edd0821ef29c499111546595f07c6, type: 3}
-  - {fileID: 6972540361025622094, guid: e4fb246d62547494a93746f7f67c3c84, type: 3}
-  - {fileID: 6972540361025622094, guid: a2f0b0de45090d8499f35c97efce3348, type: 3}
-  - {fileID: 6972540361025622094, guid: dee73e5d7baa0544086bb43ab319ae3a, type: 3}
-  - {fileID: 6972540361025622094, guid: 5d0d44e403061c0448a0c9005e0f7929, type: 3}
-  - {fileID: 6972540361025622094, guid: 1a113176fed741942895a3321e6c0f07, type: 3}
-  - {fileID: 6972540361025622094, guid: 0bcb60bf7cee72b46ab67fae3a84597c, type: 3}
-  - {fileID: 6972540361025622094, guid: 652200eaa4490ea4185368839288db35, type: 3}
-  - {fileID: 6972540361025622094, guid: fe892139c4ff1434e8084504dbf84908, type: 3}
-  - {fileID: 6972540361025622094, guid: 5bbf62be6daea6f45abecbd925eba809, type: 3}
-  - {fileID: 6972540361025622094, guid: b94537e3f47883d4cb985212bcd13b95, type: 3}
-  - {fileID: 6972540361025622094, guid: 2978baeb171315d418a6e93dbc011194, type: 3}
-  - {fileID: 6972540361025622094, guid: 1aedda8ba4f9c9543a8bdfaa1aee94e1, type: 3}
-  - {fileID: 6972540361025622094, guid: 1eff5359c1fabe743b4b4949d556c619, type: 3}
   emptyTileSprite: {fileID: 21300000, guid: 5800d53ecad53ff429e221b53a8aea1d, type: 3}
   fullTileSprite: {fileID: 21300000, guid: 4bde26d4c7159144eaf80e6c135d32a4, type: 3}

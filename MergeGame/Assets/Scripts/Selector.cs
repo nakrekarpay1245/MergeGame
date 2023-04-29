@@ -1,17 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using static UnityEngine.Rendering.DebugUI;
 
 public class Selector : MonoSingleton<Selector>
 {
     private const float minimumSelectionDistance = 0.75f;
-    private const float uiDelay = 0.15f;
-
-    [Header("Tile")]
-    [HideInInspector]
-    public List<Tile> activeTileList;
 
     private Tile firstTile = null;
     private Tile lastTile = null;
@@ -92,7 +84,7 @@ public class Selector : MonoSingleton<Selector>
     /// <summary>
     /// Decreases the produce timer by 1
     /// </summary>
-    public void DecreseProduceTimer()
+    public void IncreaseProduceTimer()
     {
         produceTimer++;
     }
@@ -116,9 +108,9 @@ public class Selector : MonoSingleton<Selector>
         Vector3 touchPosition = Camera.main.ScreenToWorldPoint(touch.position);
         float nearestDistance = float.MaxValue;
 
-        for (int i = 0; i < activeTileList.Count; i++)
+        for (int i = 0; i < TileManager.singleton.GetActiveTileList().Count; i++)
         {
-            Tile tile = activeTileList[i];
+            Tile tile = TileManager.singleton.GetActiveTileList()[i];
             float distance = Vector2.Distance(tile.transform.position, touchPosition);
 
             if (distance < nearestDistance)
@@ -165,9 +157,9 @@ public class Selector : MonoSingleton<Selector>
         Vector3 touchPosition = Camera.main.ScreenToWorldPoint(touch.position);
         float nearestDistance = float.MaxValue;
 
-        for (int i = 0; i < activeTileList.Count; i++)
+        for (int i = 0; i < TileManager.singleton.GetActiveTileList().Count; i++)
         {
-            Tile tile = activeTileList[i];
+            Tile tile = TileManager.singleton.GetActiveTileList()[i];
             float distance = Vector2.Distance(tile.transform.position, touchPosition);
 
             if (distance < nearestDistance)
@@ -217,7 +209,10 @@ public class Selector : MonoSingleton<Selector>
                     currentEntity = null;
 
                     ParticleManager.singleton.PlayParticleAtPoint(lastTile.transform.position);
+
                     AudioManager.singleton.PlaySound("SparkleSFX");
+
+                    RequestManager.singleton.ControlRequestButton();
                 }
                 else
                 {
@@ -235,8 +230,6 @@ public class Selector : MonoSingleton<Selector>
                 }
             }
         }
-
-        ControlRequest();
     }
 
     /// <summary>
@@ -244,7 +237,7 @@ public class Selector : MonoSingleton<Selector>
     /// Tile object from the active Tile list. If there are no available Tile objects,
     /// the Entity object will not be generated.
     /// </summary>
-    private void ProduceEntity()
+    public void ProduceEntity()
     {
         randomTileCallCount = 0;
 
@@ -257,23 +250,11 @@ public class Selector : MonoSingleton<Selector>
         Entity generatedEntity = randomTile ?
             Instantiate(primitiveEntityPrefab, randomTile.transform) : null;
         randomTile?.SetEntity(generatedEntity);
-        ControlRequest();
 
         ParticleManager.singleton.PlayParticleAtPoint(randomTile.transform.position);
         AudioManager.singleton.PlaySound("PopSFX");
-    }
 
-    /// <summary>
-    /// This function adds the given Tile object to the active Tile list. 
-    /// If the Tile object is already in the list, it will not be added again
-    /// </summary>
-    /// <param name="tile"></param>
-    public void AddTile(Tile tile)
-    {
-        if (!activeTileList.Contains(tile))
-        {
-            activeTileList.Add(tile);
-        }
+        RequestManager.singleton.ControlRequestButton();
     }
 
     /// <summary>
@@ -284,9 +265,9 @@ public class Selector : MonoSingleton<Selector>
     /// <returns></returns>
     private Tile GetRandomTile()
     {
-        if (randomTileCallCount < activeTileList.Count)
+        if (randomTileCallCount < TileManager.singleton.GetActiveTileList().Count)
         {
-            Tile randomTile = activeTileList[Random.Range(0, activeTileList.Count)];
+            Tile randomTile = TileManager.singleton.GetActiveTileList()[Random.Range(0, TileManager.singleton.GetActiveTileList().Count)];
             if (randomTile.GetIsFull())
             {
                 randomTileCallCount++;
@@ -297,101 +278,5 @@ public class Selector : MonoSingleton<Selector>
         }
         randomTileCallCount++;
         return null;
-    }
-
-    /// <summary>
-    /// This code block is a method called "ControlRequest" that checks if there is
-    /// a matching entity on any of the active tiles to fulfill the current request.
-    /// It starts by getting the current request entity from the RequestManager.
-    /// It then loops through the activeTileList, which contains all the currently active 
-    /// tiles, and checks if each tile is currently occupied by an entity. If a tile is empty, 
-    /// it skips to the next one. If a tile is occupied, it checks if the entity level of the
-    /// request entity matches the entity level of the entity on the tile. If there is a match,
-    /// it calls the method "ChangeDeliverButtonVisibility" with a true parameter, which will
-    /// display the delivery button so that the player can fulfill the request. If no match is 
-    /// found, the method ends without making any changes
-    /// </summary>
-    private void ControlRequest()
-    {
-        Entity requestEntity = RequestManager.singleton.GetRequestEntity();
-        for (int i = 0; i < activeTileList.Count; i++)
-        {
-            Tile activeTile = activeTileList[i];
-            Entity activeTileEntity = activeTile.GetIsFull() ? activeTile.GetEntity() : null;
-            if (!activeTileEntity)
-            {
-                continue;
-            }
-            if (requestEntity.GetEntityLevel() == activeTileEntity.GetEntityLevel())
-            {
-                ChangeDeliverButtonVisibility(true);
-                return;
-            }
-        }
-    }
-
-    /// <summary>
-    /// This method changes the visibility of the deliver button on the game screen.
-    /// If the value parameter is set to true, the deliver button is activated and becomes visible. 
-    /// If it is set to false, the button is deactivated and hidden.
-    /// </summary>
-    /// <param name="value"></param>
-    private void ChangeDeliverButtonVisibility(bool value)
-    {
-        deliverButton.SetActive(value);
-    }
-
-    /// <summary>
-    /// This is a method named SetRequest() that is used to set a request for a specific
-    /// entity. It first retrieves the current request entity from the RequestManager. 
-    /// Then, it iterates through a list of activeTileList, which represents a list of 
-    /// tiles that are currently in use in the game. For each active tile, it checks if
-    /// the tile is occupied by an entity. If it is not, the iteration continues to the 
-    /// next tile. Otherwise, it compares the entity level of the current request entity 
-    /// with the entity level of the entity occupying the tile. If the levels match, it 
-    /// starts a coroutine named SetRequestRoutine with the active tile entity and the 
-    /// active tile as parameters. It also sets the deliver button visibility to false
-    /// </summary>
-    public void SetRequest()
-    {
-        Entity requestEntity = RequestManager.singleton.GetRequestEntity();
-        for (int i = 0; i < activeTileList.Count; i++)
-        {
-            Tile activeTile = activeTileList[i];
-            Entity activeTileEntity = activeTile.GetIsFull() ? activeTile.GetEntity() : null;
-            if (!activeTileEntity)
-            {
-                continue;
-            }
-            if (requestEntity.GetEntityLevel() == activeTileEntity.GetEntityLevel())
-            {
-                StartCoroutine(SetRequestRoutine(activeTileEntity, activeTile));
-                ChangeDeliverButtonVisibility(false);
-                return;
-            }
-        }
-    }
-
-    /// <summary>
-    /// This is a coroutine function that is called when the player delivers the 
-    /// requested entity. The function first sends the delivered entity, clears the 
-    /// tile it was on, and waits for a short period of time using WaitForSeconds. 
-    /// Then, it displays a happy mouth expression using the HumanManager singleton,
-    /// waits for a longer period of time, and finally sets a new request through the
-    /// RequestManager singleton
-    /// </summary>
-    /// <param name="activeTileEntity"></param>
-    /// <param name="activeTile"></param>
-    /// <returns></returns>
-    private IEnumerator SetRequestRoutine(Entity activeTileEntity, Tile activeTile)
-    {
-        activeTileEntity.Send();
-        activeTile.Clear();
-        yield return new WaitForSeconds(uiDelay);
-
-        HumanManager.singleton.HappyMouth();
-        yield return new WaitForSeconds(uiDelay * 10);
-
-        RequestManager.singleton.SetRequest();
     }
 }

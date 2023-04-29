@@ -1,13 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
+using DG.Tweening;
 using UnityEngine;
 
 public class Tile : MonoBehaviour
 {
-    [Header("Entity List")]
-    [SerializeField]
-    private List<Entity> entityList;
-
     private Entity currentEntity;
 
     [Header("Tile Visualize")]
@@ -24,6 +19,12 @@ public class Tile : MonoBehaviour
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
         SetEntity(GetComponentInChildren<Entity>());
+    }
+
+    private void Start()
+    {
+        transform.DOScale(0, 0);
+        transform.DOScale(1, TimeManager.singleton.GetUIDelay()).SetEase(Ease.Flash);
     }
 
     /// <summary>
@@ -45,7 +46,7 @@ public class Tile : MonoBehaviour
 
                 Clear();
 
-                Entity newEntity = Instantiate(entityList[entityLevel + 1], transform.position, Quaternion.identity);
+                Entity newEntity = Instantiate(EntityManager.singleton.GetEntityWithIndex(entityLevel + 1), transform.position, Quaternion.identity);
 
                 currentEntity = newEntity;
                 currentEntity.SetParent(transform);

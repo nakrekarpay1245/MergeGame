@@ -21,8 +21,8 @@ public class AudioManager : MonoSingleton<AudioManager>
     //private Slider musicSlider;
     //[SerializeField]
     //private Slider soundSlider;
-    //[SerializeField]
-    //private Toggle soundToggle;
+    [SerializeField]
+    private Toggle soundToggle;
 
     private void Awake()
     {
@@ -34,20 +34,20 @@ public class AudioManager : MonoSingleton<AudioManager>
         }
     }
 
-    //private void Start()
-    //{
-    //    if (soundSlider != null)
-    //    {
-    //        masterVolume = SaveLoadManager.singleton.GetSoundVolume();
-    //        //musicSlider.value = masterVolume;
-    //        soundSlider.value = masterVolume;
-    //    }
-    //    if (soundToggle != null)
-    //    {
-    //        isAudioSourceMuted = SaveLoadManager.singleton.GetSoundMuted();
-    //        soundToggle.isOn = !isAudioSourceMuted;
-    //    }
-    //}
+    private void Start()
+    {
+        //if (soundSlider != null)
+        //{
+        //    masterVolume = SaveLoadManager.singleton.GetSoundVolume();
+        //    //musicSlider.value = masterVolume;
+        //    soundSlider.value = masterVolume;
+        //}
+        if (soundToggle != null)
+        {
+            //isAudioSourceMuted = SaveLoadManager.singleton.GetSoundMuted();
+            soundToggle.isOn = !isAudioSourceMuted;
+        }
+    }
 
     /// <summary>
     /// Plays an audio clip with the given name, volume, and loop setting, using an available AudioSource.
@@ -150,15 +150,15 @@ public class AudioManager : MonoSingleton<AudioManager>
     //    SaveLoadManager.singleton.SetSoundVolume(masterVolume);
     //}
 
-    //public void ToggleMute(bool toogleValue)
-    //{
-    //    for (int i = 0; i < audioSources.Count; i++)
-    //    {
-    //        audioSources[i].mute = !audioSources[i].mute;
-    //        isAudioSourceMuted = audioSources[i].mute;
-    //    }
+    public void ToggleMute(bool toogleValue)
+    {
+        for (int i = 0; i < audioSources.Count; i++)
+        {
+            audioSources[i].mute = !audioSources[i].mute;
+            isAudioSourceMuted = audioSources[i].mute;
+        }
 
-    //    SaveLoadManager.singleton.SetSoundMuted(audioSources[0].mute);
-    //    //SaveLoadManager.singleton.SetMusicMuted(audioSources[0].mute);
-    //}
+        //SaveLoadManager.singleton.SetSoundMuted(audioSources[0].mute);
+        //SaveLoadManager.singleton.SetMusicMuted(audioSources[0].mute);
+    }
 }
