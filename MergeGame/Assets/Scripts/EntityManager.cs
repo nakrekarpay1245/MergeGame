@@ -12,4 +12,9 @@ public class EntityManager : MonoSingleton<EntityManager>
     {
         return entityList[index];
     }
+
+    public int GetEntityListCount()
+    {
+        return entityList.Count;
+    }
 }

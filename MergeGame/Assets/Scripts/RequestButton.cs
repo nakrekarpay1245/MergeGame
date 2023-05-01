@@ -39,7 +39,6 @@ public class RequestButton : MonoBehaviour
         requestEntity = RequestManager.singleton.GetRequestEntity();
         requestImage.sprite = requestEntity.GetSprite();
         humanIconInButton.RegenerateHuman();
-        //ControlRequest();
     }
 
     public void SetRequest()
@@ -47,6 +46,7 @@ public class RequestButton : MonoBehaviour
         if (RequestManager.singleton.SetRequest(requestEntity, transform))
         {
             //Debug.Log("Request True!");
+            StopCoroutine(ReRequestRoutine());
             StartCoroutine(ReRequestRoutine());
         }
         else
@@ -119,27 +119,19 @@ public class RequestButton : MonoBehaviour
 
     private void ChangeDeliverIconVisibility(float value)
     {
-        //rightDeliverDisplayer.transform.DOScale(value, TimeManager.singleton.GetUIDelay());      
+        StopCoroutine(ChangeDeliverIconVisibilityRoutine(value));
         StartCoroutine(ChangeDeliverIconVisibilityRoutine(value));
     }
 
     private IEnumerator ChangeDeliverIconVisibilityRoutine(float value)
     {
-        if (value > 0)
+        while (Mathf.Abs(rightDeliverDisplayer.fillAmount - value) > 0.01f)
         {
-            while (rightDeliverDisplayer.fillAmount < 1)
-            {
-                rightDeliverDisplayer.fillAmount += Time.deltaTime * 2;
-                yield return null;
-            }
+            rightDeliverDisplayer.fillAmount =
+                Mathf.MoveTowards(rightDeliverDisplayer.fillAmount, value, Time.deltaTime * 4);
+            yield return null;
         }
-        else
-        {
-            while (rightDeliverDisplayer.fillAmount > 0)
-            {
-                rightDeliverDisplayer.fillAmount -= Time.deltaTime * 5;
-                yield return null;
-            }
-        }
+
+        rightDeliverDisplayer.fillAmount = value;
     }
 }

@@ -24,7 +24,7 @@ public class RequestManager : MonoSingleton<RequestManager>
     public Entity GetRequestEntity()
     {
         // Randomly selects an entity from the entity list and sets it as the request entity
-        int requestIndex = Random.Range(0, 3);
+        int requestIndex = Random.Range(0, 4);
         return EntityManager.singleton.GetEntityWithIndex(requestIndex);
     }
 
