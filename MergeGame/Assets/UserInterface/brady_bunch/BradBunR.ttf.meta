@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 76d9339b194e48e4298f399f49c13a55
+guid: bdbd11b0464d62e4399cce189d715664
 TrueTypeFontImporter:
   externalObjects: {}
   serializedVersion: 4
@@ -9,7 +9,7 @@ TrueTypeFontImporter:
   characterPadding: 1
   includeFontData: 1
   fontNames:
-  - Remains
+  - Brady Bunch Remastered
   fallbackFontReferences: []
   customCharacters: 
   fontRenderingMode: 0

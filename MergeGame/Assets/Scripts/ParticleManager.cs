@@ -59,7 +59,7 @@ public class ParticleManager : MonoSingleton<ParticleManager>
             return;
         }
 
-        particleSystem.transform.position = position;
+        particleSystem.transform.position = new Vector3(position.x, position.y, 0);
         particleSystem.Play();
     }
 }

@@ -11,4 +11,19 @@ public class TimeManager : MonoSingleton<TimeManager>
     {
         return uiDelay;
     }
+
+    public float GetUIDelay2()
+    {
+        return uiDelay * 2;
+    }
+
+    public float GetUIDelay4()
+    {
+        return uiDelay * 4;
+    }
+
+    public float GetUIDelay8()
+    {
+        return uiDelay * 8;
+    }
 }

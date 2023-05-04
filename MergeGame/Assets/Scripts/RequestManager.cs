@@ -9,6 +9,13 @@ public class RequestManager : MonoSingleton<RequestManager>
     [SerializeField]
     private List<RequestButton> requestButtonList;
 
+    [SerializeField]
+    private Transform requestDisplayer;
+    [SerializeField]
+    private Image requestDisplayerIcon;
+    [SerializeField]
+    private Transform requestBrightness;
+
     public void AddRequestButton(RequestButton requestButton)
     {
         if (!requestButtonList.Contains(requestButton))
@@ -24,7 +31,7 @@ public class RequestManager : MonoSingleton<RequestManager>
     public Entity GetRequestEntity()
     {
         // Randomly selects an entity from the entity list and sets it as the request entity
-        int requestIndex = Random.Range(0, 4);
+        int requestIndex = Random.Range(0, EntityManager.singleton.GetEntityListCount());
         return EntityManager.singleton.GetEntityWithIndex(requestIndex);
     }
 
@@ -99,5 +106,22 @@ public class RequestManager : MonoSingleton<RequestManager>
         {
             requestButtonList[i].ControlRequest();
         }
+    }
+
+    public void DisplayRequest(Sprite requestEntitySprite)
+    {
+        requestDisplayerIcon.sprite = requestEntitySprite;
+
+        Sequence sequence = DOTween.Sequence();
+        sequence.Append(requestDisplayer.DOScale(0, 0));
+
+        requestBrightness.DORotate(180 * Vector3.forward, TimeManager.singleton.GetUIDelay4()).OnComplete(() =>
+            requestBrightness.DORotate(360 * Vector3.forward, TimeManager.singleton.GetUIDelay4()));
+
+        sequence.Append(requestDisplayer.DOScale(1, TimeManager.singleton.GetUIDelay()));
+
+        sequence.Append(requestDisplayer.DOScale(1.1f, TimeManager.singleton.GetUIDelay2()));
+
+        sequence.Append(requestDisplayer.DOScale(0, TimeManager.singleton.GetUIDelay()));
     }
 }

@@ -1,6 +1,4 @@
 using DG.Tweening;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Entity : MonoBehaviour
@@ -18,6 +16,9 @@ public class Entity : MonoBehaviour
     [Header("References")]
     [SerializeField]
     private SpriteRenderer spriteRendererComponent;
+
+    [SerializeField]
+    private Sprite requestSprite;
 
     private void Awake()
     {
@@ -53,7 +54,11 @@ public class Entity : MonoBehaviour
     public void Send(Vector3 buttonPosition)
     {
         SetParent(null);
-        transform.DOMove(buttonPosition, TimeManager.singleton.GetUIDelay());
+        transform.DOMove(buttonPosition, TimeManager.singleton.GetUIDelay()).OnComplete(() =>
+        {
+            ParticleManager.singleton.PlayParticleAtPoint(transform.position);
+            AudioManager.singleton.PlaySound("SparkleSFX");
+        });
         spriteRendererComponent.sortingOrder = deactiveTileSortingOrder;
     }
 
@@ -91,5 +96,14 @@ public class Entity : MonoBehaviour
     public Sprite GetSprite()
     {
         return spriteRendererComponent.sprite;
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <returns></returns>
+    public Sprite GetRequestSprite()
+    {
+        return requestSprite;
     }
 }

@@ -1,5 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
+using System.Collections.Generic;
 
 public class Selector : MonoSingleton<Selector>
 {
@@ -29,6 +31,7 @@ public class Selector : MonoSingleton<Selector>
     private GameObject deliverButton;
 
     private Touch touch;
+
     void Update()
     {
         if (Input.touchCount == 1)

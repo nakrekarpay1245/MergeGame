@@ -1,4 +1,5 @@
 using DG.Tweening;
+using System;
 using UnityEngine;
 
 public class Tile : MonoBehaviour
@@ -59,8 +60,21 @@ public class Tile : MonoBehaviour
                 entityLevel = currentEntity.GetEntityLevel();
             }
 
-            spriteRenderer.sprite = GetIsFull() ? fullTileSprite : emptyTileSprite;
+            spriteRenderer.sprite = fullTileSprite;
+            PopScale();
         }
+    }
+
+    /// <summary>
+    /// This function pops the scale of the current transform by a small amount using DOTween's PunchScale method, 
+    /// then resets the scale to 1 using DOTween's DOScale method.
+    /// </summary>
+    private void PopScale()
+    {
+        transform.DOPunchScale(Vector3.one * 0.1f, TimeManager.singleton.GetUIDelay2()).OnComplete(() =>
+        {
+            transform.DOScale(1, 0);
+        });
     }
 
     /// <summary>

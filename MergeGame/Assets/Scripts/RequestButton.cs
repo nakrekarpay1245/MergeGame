@@ -46,6 +46,7 @@ public class RequestButton : MonoBehaviour
         if (RequestManager.singleton.SetRequest(requestEntity, transform))
         {
             //Debug.Log("Request True!");
+            RequestManager.singleton.DisplayRequest(requestEntity.GetRequestSprite());
             StopCoroutine(ReRequestRoutine());
             StartCoroutine(ReRequestRoutine());
         }
@@ -82,7 +83,7 @@ public class RequestButton : MonoBehaviour
 
         Transform parentTransform = transform.parent;
         transform.parent = null;
-        yield return new WaitForSeconds(TimeManager.singleton.GetUIDelay() * 2);
+        yield return new WaitForSeconds(TimeManager.singleton.GetUIDelay());
 
         TitleManager.singleton.IncreaseExperience();
         transform.parent = parentTransform;

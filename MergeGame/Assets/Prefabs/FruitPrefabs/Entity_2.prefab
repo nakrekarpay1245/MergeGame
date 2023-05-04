@@ -150,7 +150,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 4.64, y: 4.24}
+    oldSize: {x: 0.44190475, y: 0.40380952}
     newSize: {x: 5.12, y: 5.12}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -175,3 +175,4 @@ MonoBehaviour:
   deactiveTileSortingOrder: 10
   entityLevel: 1
   spriteRendererComponent: {fileID: 6972540361025622083}
+  requestSprite: {fileID: 21300000, guid: 8872c96f832274041a96591513f374c7, type: 3}
