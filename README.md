@@ -40,10 +40,10 @@ Eğer Merge Fruit oyununa katkıda bulunmak, hataları bildirmek veya önerilerd
 
 ## İletişim
 
-- [E-posta Adresi](mailto:ornek@example.com)
-- [LinkedIn](https://www.linkedin.com/in/ornek/)
-- [Twitter](https://twitter.com/ornek)
-- [Web Sitesi](https://www.ornek.com)
+- [E-posta Adresi](mailto:rknyprk79@gmail.com)
+- [LinkedIn](https://www.linkedin.com/in/erkanyaprak/)
+- [itch.io](https://erkanyaprak.itch.io)
+- [Web Sitesi](https://erkanyaprak.w3spaces.com/)
 
 Her türlü soru, görüş ve işbirliği teklifleriniz için benimle iletişime geçmekten çekinmeyin.
 
