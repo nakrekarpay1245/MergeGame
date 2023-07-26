@@ -7,12 +7,12 @@ public class ParticleManager : MonoSingleton<ParticleManager>
     [Header("Particle Pool Parameters")]
     [Tooltip("Particle Pool Prefab Reference")]
     [SerializeField]
-    private ParticleSystem particlePrefab;
+    private ParticleSystem _particlePrefab;
     [Tooltip("Particle Pool Size")]
     [SerializeField]
-    private int particleCount = 10;
+    private int _particleCount = 10;
     [SerializeField]
-    private List<ParticleSystem> particleList = new List<ParticleSystem>();
+    private List<ParticleSystem> _particleList = new List<ParticleSystem>();
 
     private void Awake()
     {
@@ -25,10 +25,10 @@ public class ParticleManager : MonoSingleton<ParticleManager>
     /// </summary>
     private void GenerateParticleSystems()
     {
-        for (int i = 0; i < particleCount; i++)
+        for (int i = 0; i < _particleCount; i++)
         {
-            ParticleSystem particle = Instantiate(particlePrefab, transform);
-            particleList.Add(particle);
+            ParticleSystem particle = Instantiate(_particlePrefab, transform);
+            _particleList.Add(particle);
         }
     }
 
@@ -43,12 +43,12 @@ public class ParticleManager : MonoSingleton<ParticleManager>
     {
         // Find audio source which is not playing
         ParticleSystem particleSystem = null;
-        for (int i = 0; i < particleList.Count; i++)
+        for (int i = 0; i < _particleList.Count; i++)
         {
-            if (!particleList[i].isPlaying)
+            if (!_particleList[i].isPlaying)
             {
                 //Debug.LogWarning(particleList[i].name + " is not playing");
-                particleSystem = particleList[i];
+                particleSystem = _particleList[i];
                 break;
             }
         }

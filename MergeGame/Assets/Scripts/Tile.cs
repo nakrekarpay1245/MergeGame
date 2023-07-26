@@ -1,68 +1,71 @@
 using DG.Tweening;
 using System;
 using UnityEngine;
+using static UnityEngine.EventSystems.EventTrigger;
 
 public class Tile : MonoBehaviour
 {
-    private Entity currentEntity;
+    private Entity _currentEntity;
+    public Entity Entity
+    {
+        get { return _currentEntity; }
+        set
+        {
+            if (value)
+            {
+                if (_currentEntity)
+                {
+                    _currentEntity.gameObject.SetActive(false);
+                    value.gameObject.SetActive(false);
+
+                    Clear();
+
+                    Entity newEntity = Instantiate(EntityManager.singleton.
+                        GetEntityWithIndex(_entityLevel + 1), transform.position, Quaternion.identity);
+
+                    _currentEntity = newEntity;
+                    _currentEntity.SetParent(transform);
+                    _entityLevel = _currentEntity.EntityLevel;
+                }
+                else
+                {
+                    _currentEntity = value;
+                    _currentEntity.SetParent(transform);
+                    _entityLevel = _currentEntity.EntityLevel;
+                }
+
+                _spriteRenderer.sprite = _fullTileSprite;
+                PopScale();
+            }
+        }
+    }
+
+    public bool IsFull
+    {
+        get { return _currentEntity; }
+        private set { }
+    }
 
     [Header("Tile Visualize")]
     [SerializeField]
-    private Sprite emptyTileSprite;
+    private Sprite _emptyTileSprite;
     [SerializeField]
-    private Sprite fullTileSprite;
+    private Sprite _fullTileSprite;
 
-    private SpriteRenderer spriteRenderer;
+    private SpriteRenderer _spriteRenderer;
 
-    private int entityLevel;
+    private int _entityLevel;
 
     private void Awake()
     {
-        spriteRenderer = GetComponent<SpriteRenderer>();
-        SetEntity(GetComponentInChildren<Entity>());
+        _spriteRenderer = GetComponent<SpriteRenderer>();
+        Entity = GetComponentInChildren<Entity>();
     }
 
     private void Start()
     {
         transform.DOScale(0, 0);
         transform.DOScale(1, TimeManager.singleton.GetUIDelay()).SetEase(Ease.Flash);
-    }
-
-    /// <summary>
-    /// This method sets the entity for the tile. If there is already a current entity,
-    /// it combines the two entities, plays particle effect and sound, and creates a new 
-    /// entity with a higher level. Otherwise, it just sets the current entity, plays particle
-    /// effect and sound, and sets the entity level. Finally, it updates the sprite of the 
-    /// tile based on whether it's full or empty
-    /// </summary>
-    /// <param name="entity"></param>
-    public void SetEntity(Entity entity)
-    {
-        if (entity)
-        {
-            if (currentEntity)
-            {
-                currentEntity.gameObject.SetActive(false);
-                entity.gameObject.SetActive(false);
-
-                Clear();
-
-                Entity newEntity = Instantiate(EntityManager.singleton.GetEntityWithIndex(entityLevel + 1), transform.position, Quaternion.identity);
-
-                currentEntity = newEntity;
-                currentEntity.SetParent(transform);
-                entityLevel = currentEntity.GetEntityLevel();
-            }
-            else
-            {
-                currentEntity = entity;
-                currentEntity.SetParent(transform);
-                entityLevel = currentEntity.GetEntityLevel();
-            }
-
-            spriteRenderer.sprite = fullTileSprite;
-            PopScale();
-        }
     }
 
     /// <summary>
@@ -78,31 +81,12 @@ public class Tile : MonoBehaviour
     }
 
     /// <summary>
-    /// This method returns the current entity attached to the tile
-    /// </summary>
-    /// <returns></returns>
-    public Entity GetEntity()
-    {
-        return currentEntity;
-    }
-
-    /// <summary>
     /// This function clears the current entity on the tile, making it empty, and sets the tile
     /// sprite to the emptyTileSprite
     /// </summary>
     public void Clear()
     {
-        currentEntity = null;
-        spriteRenderer.sprite = emptyTileSprite;
-    }
-
-    /// <summary>
-    /// This function returns a boolean value indicating whether the tile is currently holding
-    /// an entity or not. If there is an entity present, it returns true, otherwise it returns false
-    /// </summary>
-    /// <returns></returns>
-    public bool GetIsFull()
-    {
-        return currentEntity;
+        _currentEntity = null;
+        _spriteRenderer.sprite = _emptyTileSprite;
     }
 }

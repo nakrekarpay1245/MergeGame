@@ -171,8 +171,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e7356155155f354badc3f87745acd96, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  activeTileSortingOrder: 20
-  deactiveTileSortingOrder: 10
-  entityLevel: 6
-  spriteRendererComponent: {fileID: 6972540361025622083}
-  requestSprite: {fileID: 21300000, guid: 6a67a3c79601f6f4ab11d8f1144402ac, type: 3}
+  _activeTileSortingOrder: 100
+  _deactiveTileSortingOrder: 50
+  _entityLevel: 6
+  _spriteRendererComponent: {fileID: 6972540361025622083}
+  _requestSprite: {fileID: 0}

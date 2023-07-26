@@ -1,28 +1,44 @@
 using DG.Tweening;
 using UnityEngine;
 
-public class Entity : MonoBehaviour
+public class Entity : MonoBehaviour, ISelectable, IMoveable
 {
     [Header("Selection")]
     [SerializeField]
-    private int activeTileSortingOrder;
+    private int _activeTileSortingOrder;
     [SerializeField]
-    private int deactiveTileSortingOrder;
+    private int _deactiveTileSortingOrder;
 
     [Header("Entity Level")]
     [SerializeField]
-    private int entityLevel;
+    private int _entityLevel;
+    public int EntityLevel
+    {
+        get { return _entityLevel; }
+        private set { }
+    }
 
     [Header("References")]
     [SerializeField]
-    private SpriteRenderer spriteRendererComponent;
+    private SpriteRenderer _spriteRendererComponent;
 
     [SerializeField]
-    private Sprite requestSprite;
-
-    private void Awake()
+    private Sprite _requestSprite;
+    public Sprite RequestSprite
     {
-        spriteRendererComponent = GetComponent<SpriteRenderer>();
+        get { return _requestSprite; }
+        private set { }
+    }
+
+    public Sprite Sprite
+    {
+        get { return _spriteRendererComponent.sprite; }
+        private set { }
+    }
+
+    private void OnEnable()
+    {
+        _spriteRendererComponent = GetComponent<SpriteRenderer>();
     }
 
     private void Start()
@@ -36,39 +52,30 @@ public class Entity : MonoBehaviour
     /// </summary>
     public void Select()
     {
-        spriteRendererComponent.sortingOrder = activeTileSortingOrder;
+        _spriteRendererComponent.sortingOrder = _activeTileSortingOrder;
     }
 
     /// <summary>
     /// Sets the sorting order of the sprite renderer component to the deactive tile sorting order.
     /// </summary>
-    public void Deselect()
+    public void DeSelect()
     {
-        spriteRendererComponent.sortingOrder = deactiveTileSortingOrder;
+        _spriteRendererComponent.sortingOrder = _deactiveTileSortingOrder;
     }
 
     /// <summary>
     /// Starts the SendRoutine coroutine and sets the sorting order of
     /// the sprite renderer component to the deactive tile sorting order
     /// </summary>
-    public void Send(Vector3 buttonPosition)
+    public void Move(Vector2 buttonPosition)
     {
         SetParent(null);
         transform.DOMove(buttonPosition, TimeManager.singleton.GetUIDelay()).OnComplete(() =>
         {
             ParticleManager.singleton.PlayParticleAtPoint(transform.position);
-            AudioManager.singleton.PlaySound("SparkleSFX");
+            AudioManager.singleton.PlaySound("Sparkle");
         });
-        spriteRendererComponent.sortingOrder = deactiveTileSortingOrder;
-    }
-
-    /// <summary>
-    /// Returns the level of the entity
-    /// </summary>
-    /// <returns></returns>
-    public int GetEntityLevel()
-    {
-        return entityLevel;
+        _spriteRendererComponent.sortingOrder = _deactiveTileSortingOrder;
     }
 
     /// <summary>
@@ -87,23 +94,5 @@ public class Entity : MonoBehaviour
     public void ResetPosition()
     {
         transform.DOLocalMove(Vector3.zero, TimeManager.singleton.GetUIDelay());
-    }
-
-    /// <summary>
-    /// Returns the sprite associated with the sprite renderer component.
-    /// </summary>
-    /// <returns></returns>
-    public Sprite GetSprite()
-    {
-        return spriteRendererComponent.sprite;
-    }
-
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <returns></returns>
-    public Sprite GetRequestSprite()
-    {
-        return requestSprite;
     }
 }

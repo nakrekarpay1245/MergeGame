@@ -6,15 +6,10 @@ public class EntityManager : MonoSingleton<EntityManager>
 {
     [Header("Entities")]
     [SerializeField]
-    private List<Entity> entityList;
+    private List<Entity> _entityList;
 
     public Entity GetEntityWithIndex(int index)
     {
-        return entityList[index];
-    }
-
-    public int GetEntityListCount()
-    {
-        return entityList.Count;
+        return _entityList[index];
     }
 }

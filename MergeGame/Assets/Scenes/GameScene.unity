@@ -930,7 +930,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 330be7ab37693a3428f48d8b0288944c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  faceSpriteList:
+  _faceSpriteList:
   - {fileID: -677364706, guid: e974b413830efdb4d8ea4963935cf7f1, type: 3}
   - {fileID: 1025387180, guid: e974b413830efdb4d8ea4963935cf7f1, type: 3}
   - {fileID: 1080711013, guid: e974b413830efdb4d8ea4963935cf7f1, type: 3}
@@ -981,24 +981,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa6ba9bd374d7e14089741d635736a2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  experience: 0
-  experiencePerCombine: 1
-  levelExperienceList: 0100000005000000190000007d00000071020000350c0000093d00002d310100e1f5050065cd1d00
-  titleList:
-  - Yeni
-  - Ciftci
-  - Kahraman
-  - Usta
-  - Onder
-  - Efsane
-  - Bilge
-  - Dahi
-  - Sampiyon
-  - "I\u0130mparator"
-  titleText: {fileID: 358616853}
-  level: 0
-  levelText: {fileID: 891137122}
-  experienceBar: {fileID: 778919205}
+  _experience: 0
+  _experiencePerCombine: 1
+  _levelExperienceList: 01000000030000000500000007000000090000000b0000000d0000000f0000001100000013000000
+  _titleList:
+  - Level - 1
+  - Level - 2
+  - Level - 3
+  - Level - 4
+  - Level - 5
+  - Level - 6
+  - Level - 7
+  - Level - 8
+  - Level - 9
+  - Level - 10
+  _titleText: {fileID: 358616853}
+  _level: 0
+  _levelText: {fileID: 891137122}
+  _experienceBar: {fileID: 778919205}
 --- !u!1 &358616850
 GameObject:
   m_ObjectHideFlags: 0
@@ -1382,6 +1382,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 471115997}
   m_CullTransparentMesh: 1
+--- !u!114 &476273522 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1039499750, guid: 5d50afba2fa96ee45b220d115b723fae, type: 3}
+  m_PrefabInstance: {fileID: 47142189}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55ea2f494c590b5419a75239d5d47ecd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -2082,9 +2093,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01d4e85f2efabd74ca2893748f42cb66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  particlePrefab: {fileID: 2251229489942827256, guid: 1196ea35869cad94b8c1104ff4c9e874, type: 3}
-  particleCount: 10
-  particleList: []
+  _particlePrefab: {fileID: 2251229489942827256, guid: 1196ea35869cad94b8c1104ff4c9e874, type: 3}
+  _particleCount: 10
+  _particleList: []
 --- !u!114 &778919205 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7752918358127033802, guid: f3713b3806456bc43b1ff95bbcd18db3, type: 3}
@@ -2101,6 +2112,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 2517844814418075031, guid: 5d50afba2fa96ee45b220d115b723fae, type: 3}
   m_PrefabInstance: {fileID: 1999314047}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &854742622 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1039499750, guid: 5d50afba2fa96ee45b220d115b723fae, type: 3}
+  m_PrefabInstance: {fileID: 1999314047}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55ea2f494c590b5419a75239d5d47ecd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &891137122 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5093711299799504048, guid: f3713b3806456bc43b1ff95bbcd18db3, type: 3}
@@ -2157,11 +2179,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 894180bddcbe56f49a8fbd6f9924c7a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tilePrefab: {fileID: 7085967686534751366, guid: 8ba6bc117b6ac9b4587bbfeb3c8ad718, type: 3}
-  tileParent: {fileID: 458906431}
-  tileMatris: {x: 5, y: 4}
-  distanceBetweenTiles: 1
-  distanceFromTop: 2.5
+  _tilePrefab: {fileID: 7085967686534751366, guid: 8ba6bc117b6ac9b4587bbfeb3c8ad718, type: 3}
+  _tileParent: {fileID: 458906431}
+  _tileMatris: {x: 5, y: 5}
+  _distanceBetweenTiles: 1
+  _distanceFromTop: 2
 --- !u!114 &967849426
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2174,7 +2196,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5471530797e09947b819268eac9a468, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  activeTileList: []
+  _activeTileList: []
 --- !u!224 &1039499746 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 2517844814418075031, guid: 5d50afba2fa96ee45b220d115b723fae, type: 3}
@@ -2960,27 +2982,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50ea589026a643c4b8f4023aa3899125, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maximumSoundCount: 5
-  masterVolume: 1
-  isAudioSourceMuted: 0
-  audioSources: []
-  soundList:
-  - Name: SparkleSFX
-    Clip: {fileID: 8300000, guid: 5db774689b192984c88d1978eba0a446, type: 3}
-    Volume: 1
-    Pitch: 2
-    Loop: 0
-  - Name: ChangeSFX
+  _maximumSoundCount: 10
+  _masterVolume: 1
+  _isAudioSourceMuted: 0
+  _audioSources: []
+  _soundList:
+  - Name: Change
     Clip: {fileID: 8300000, guid: 341bd09e15679ac42af3136bfb425b0c, type: 3}
     Volume: 1
-    Pitch: 2
+    Pitch: 1
     Loop: 0
-  - Name: PopSFX
+  - Name: Pop
     Clip: {fileID: 8300000, guid: cd014bf34e6b8db4db8ed059934606e7, type: 3}
     Volume: 1
-    Pitch: 2
+    Pitch: 1
     Loop: 0
-  soundToggle: {fileID: 0}
+  - Name: Sparkle
+    Clip: {fileID: 8300000, guid: 5db774689b192984c88d1978eba0a446, type: 3}
+    Volume: 1
+    Pitch: 1
+    Loop: 0
+  _soundToggle: {fileID: 0}
 --- !u!1 &1562899324
 GameObject:
   m_ObjectHideFlags: 0
@@ -3396,7 +3418,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cbf9ff5b2eb2d6a47b967830e4a38a0e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  settingsMenu: {fileID: 1225808708}
+  _settingsMenu: {fileID: 1225808708}
 --- !u!4 &1711812731
 Transform:
   m_ObjectHideFlags: 0
@@ -3705,10 +3727,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2b7029c2c3727342b020325ec156242, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  requestButtonList: []
-  requestDisplayer: {fileID: 1765678402}
-  requestDisplayerIcon: {fileID: 244430494}
-  requestBrightness: {fileID: 1466684490}
+  _requestButtonList:
+  - {fileID: 1853348218}
+  - {fileID: 854742622}
+  - {fileID: 476273522}
+  _requestDisplayer: {fileID: 244430493}
+  _requestDisplayerIcon: {fileID: 1765678403}
+  _requestBrightness: {fileID: 1466684490}
 --- !u!1 &1765678401
 GameObject:
   m_ObjectHideFlags: 0
@@ -3969,10 +3994,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ca5f5f7f8ac39349b4687f3fd21e0fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  primitiveEntityPrefab: {fileID: 6972540361025622094, guid: dbe24f3c323109648840dab11b9fad25, type: 3}
-  produceButtonFill: {fileID: 1733781506}
-  autoProduceTime: 10
-  deliverButton: {fileID: 0}
+  _primitiveEntityPrefab: {fileID: 6972540361025622094, guid: dbe24f3c323109648840dab11b9fad25, type: 3}
+  _produceButtonFill: {fileID: 1733781506}
+  _autoProduceTime: 10
+  _deliverButton: {fileID: 0}
 --- !u!1 &1815960751
 GameObject:
   m_ObjectHideFlags: 0
@@ -4183,6 +4208,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1818119620}
   m_CullTransparentMesh: 1
+--- !u!114 &1853348218 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1039499750, guid: 5d50afba2fa96ee45b220d115b723fae, type: 3}
+  m_PrefabInstance: {fileID: 2517844815426051189}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55ea2f494c590b5419a75239d5d47ecd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1876286738
 GameObject:
   m_ObjectHideFlags: 0
@@ -4668,7 +4704,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d38cdaded4702c7458b69e7634e277c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  entityList:
+  _entityList:
   - {fileID: 6972540361025622094, guid: dbe24f3c323109648840dab11b9fad25, type: 3}
   - {fileID: 6972540361025622094, guid: a9d3e45878f728c45ad247bbc74c892b, type: 3}
   - {fileID: 6972540361025622094, guid: b9c41316456a38444b24ea89294048d6, type: 3}

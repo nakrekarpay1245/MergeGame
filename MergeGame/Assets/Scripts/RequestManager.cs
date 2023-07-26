@@ -7,20 +7,20 @@ using UnityEngine.UI;
 public class RequestManager : MonoSingleton<RequestManager>
 {
     [SerializeField]
-    private List<RequestButton> requestButtonList;
+    private List<RequestButton> _requestButtonList;
 
     [SerializeField]
-    private Transform requestDisplayer;
+    private Transform _requestDisplayer;
     [SerializeField]
-    private Image requestDisplayerIcon;
+    private Image _requestDisplayerIcon;
     [SerializeField]
-    private Transform requestBrightness;
+    private Transform _requestBrightness;
 
     public void AddRequestButton(RequestButton requestButton)
     {
-        if (!requestButtonList.Contains(requestButton))
+        if (!_requestButtonList.Contains(requestButton))
         {
-            requestButtonList.Add(requestButton);
+            _requestButtonList.Add(requestButton);
         }
     }
 
@@ -49,26 +49,25 @@ public class RequestManager : MonoSingleton<RequestManager>
     /// </summary>
     public bool SetRequest(Entity requestEntity, Transform requestButton)
     {
-        for (int i = 0; i < TileManager.singleton.GetActiveTileList().Count; i++)
+        for (int i = 0; i < TileManager.singleton.ActiveTileList.Count; i++)
         {
-            Tile activeTile = TileManager.singleton.GetActiveTileList()[i];
+            Tile activeTile = TileManager.singleton.ActiveTileList[i];
 
-            Entity activeTileEntity = activeTile.GetIsFull() ? activeTile.GetEntity() : null;
+            Entity activeTileEntity = activeTile.IsFull ? activeTile.Entity : null;
 
             if (!activeTileEntity)
             {
                 continue;
             }
-            if (requestEntity.GetEntityLevel() == activeTileEntity.GetEntityLevel())
+            if (requestEntity.EntityLevel == activeTileEntity.EntityLevel)
             {
-                activeTileEntity.Send(Camera.main.ScreenToWorldPoint(requestButton.position + Vector3.right * 50));
+                activeTileEntity.Move(Camera.main.ScreenToWorldPoint(requestButton.position + Vector3.right * 50));
                 activeTile.Clear();
                 return true;
             }
         }
         return false;
     }
-
 
     /// <summary>
     /// This is a method named SetRequest() that is used to set a request for a specific
@@ -83,17 +82,17 @@ public class RequestManager : MonoSingleton<RequestManager>
     /// </summary>
     public bool ContolRequest(Entity requestEntity)
     {
-        for (int i = 0; i < TileManager.singleton.GetActiveTileList().Count; i++)
+        for (int i = 0; i < TileManager.singleton.ActiveTileList.Count; i++)
         {
-            Tile activeTile = TileManager.singleton.GetActiveTileList()[i];
+            Tile activeTile = TileManager.singleton.ActiveTileList[i];
 
-            Entity activeTileEntity = activeTile.GetIsFull() ? activeTile.GetEntity() : null;
+            Entity activeTileEntity = activeTile.IsFull ? activeTile.Entity : null;
 
             if (!activeTileEntity)
             {
                 continue;
             }
-            if (requestEntity.GetEntityLevel() == activeTileEntity.GetEntityLevel())
+            if (requestEntity.EntityLevel == activeTileEntity.EntityLevel)
             {
                 return true;
             }
@@ -103,26 +102,26 @@ public class RequestManager : MonoSingleton<RequestManager>
 
     public void ControlRequestButton()
     {
-        for (int i = 0; i < requestButtonList.Count; i++)
+        for (int i = 0; i < _requestButtonList.Count; i++)
         {
-            requestButtonList[i].ControlRequest();
+            _requestButtonList[i].ControlRequest();
         }
     }
 
     public void DisplayRequest(Sprite requestEntitySprite)
     {
-        requestDisplayerIcon.sprite = requestEntitySprite;
+        _requestDisplayerIcon.sprite = requestEntitySprite;
 
         Sequence sequence = DOTween.Sequence();
-        sequence.Append(requestDisplayer.DOScale(0, 0));
+        sequence.Append(_requestDisplayer.DOScale(0, 0));
 
-        requestBrightness.DORotate(180 * Vector3.forward, TimeManager.singleton.GetUIDelay4()).OnComplete(() =>
-            requestBrightness.DORotate(360 * Vector3.forward, TimeManager.singleton.GetUIDelay4()));
+        _requestBrightness.DORotate(180 * Vector3.forward, TimeManager.singleton.GetUIDelay4()).OnComplete(() =>
+            _requestBrightness.DORotate(360 * Vector3.forward, TimeManager.singleton.GetUIDelay4()));
 
-        sequence.Append(requestDisplayer.DOScale(1, TimeManager.singleton.GetUIDelay()));
+        sequence.Append(_requestDisplayer.DOScale(1, TimeManager.singleton.GetUIDelay()));
 
-        sequence.Append(requestDisplayer.DOScale(1.1f, TimeManager.singleton.GetUIDelay2()));
+        sequence.Append(_requestDisplayer.DOScale(1.1f, TimeManager.singleton.GetUIDelay2()));
 
-        sequence.Append(requestDisplayer.DOScale(0, TimeManager.singleton.GetUIDelay()));
+        sequence.Append(_requestDisplayer.DOScale(0, TimeManager.singleton.GetUIDelay()));
     }
 }

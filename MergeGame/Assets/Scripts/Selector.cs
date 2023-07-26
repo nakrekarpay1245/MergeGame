@@ -5,62 +5,62 @@ using System.Collections.Generic;
 
 public class Selector : MonoSingleton<Selector>
 {
-    private const float minimumSelectionDistance = 0.75f;
+    private const float _minimumSelectionDistance = 0.75f;
 
-    private Tile firstTile = null;
-    private Tile lastTile = null;
+    private Tile _firstTile = null;
+    private Tile _lastTile = null;
 
     [Header("Entity")]
     [SerializeField]
-    private Entity primitiveEntityPrefab = null;
-    private Entity currentEntity = null;
+    private Entity _primitiveEntityPrefab = null;
+    private Entity _currentEntity = null;
 
-    private int randomTileCallCount;
+    private int _randomTileCallCount;
 
     [Header("Produce")]
     [SerializeField]
-    private Image produceButtonFill;
+    private Image _produceButtonFill;
 
     [Header("Auto Produce")]
     [SerializeField]
-    private float autoProduceTime = 10;
-    private float produceTimer;
+    private float _autoProduceTime = 10;
+    private float _produceTimer;
 
     [Header("Deliver")]
     [SerializeField]
-    private GameObject deliverButton;
+    private GameObject _deliverButton;
 
-    private Touch touch;
+    private Touch _touch;
 
     void Update()
     {
         if (Input.touchCount == 1)
         {
-            touch = Input.GetTouch(0);
+            _touch = Input.GetTouch(0);
 
-            if (touch.phase == TouchPhase.Began)
+            if (_touch.phase == TouchPhase.Began)
             {
                 SelectFirstTileEntity();
             }
-            else if (touch.phase == TouchPhase.Moved)
+            else if (_touch.phase == TouchPhase.Moved)
             {
                 MoveCurrentEntity();
             }
-            else if (touch.phase == TouchPhase.Ended)
+            else if (_touch.phase == TouchPhase.Ended)
             {
                 SelectLastTile();
-                if (lastTile && firstTile && currentEntity)
+                if (_lastTile && _firstTile && _currentEntity)
                 {
                     HandleEntityPlacement();
                 }
-                firstTile = null;
-                lastTile = null;
-                currentEntity = null;
+                _firstTile = null;
+                _lastTile = null;
+                _currentEntity = null;
             }
         }
         else
         {
-            currentEntity?.ResetPosition();
+            _currentEntity?.ResetPosition();
         }
 
         CalculateProduceTimer();
@@ -71,14 +71,14 @@ public class Selector : MonoSingleton<Selector>
     /// </summary>
     private void CalculateProduceTimer()
     {
-        if (produceTimer >= autoProduceTime)
+        if (_produceTimer >= _autoProduceTime)
         {
-            produceTimer = 0;
+            _produceTimer = 0;
             ProduceEntity();
         }
         else
         {
-            produceTimer += Time.deltaTime;
+            _produceTimer += Time.deltaTime;
         }
 
         DisplayProduceTimer();
@@ -89,7 +89,7 @@ public class Selector : MonoSingleton<Selector>
     /// </summary>
     public void IncreaseProduceTimer()
     {
-        produceTimer++;
+        _produceTimer++;
     }
 
     /// <summary>
@@ -97,7 +97,7 @@ public class Selector : MonoSingleton<Selector>
     /// </summary>
     private void DisplayProduceTimer()
     {
-        produceButtonFill.fillAmount = produceTimer / autoProduceTime;
+        _produceButtonFill.fillAmount = _produceTimer / _autoProduceTime;
     }
 
     /// <summary>
@@ -108,29 +108,29 @@ public class Selector : MonoSingleton<Selector>
     /// </summary>
     private void SelectFirstTileEntity()
     {
-        Vector3 touchPosition = Camera.main.ScreenToWorldPoint(touch.position);
+        Vector3 touchPosition = Camera.main.ScreenToWorldPoint(_touch.position);
         float nearestDistance = float.MaxValue;
 
-        for (int i = 0; i < TileManager.singleton.GetActiveTileList().Count; i++)
+        for (int i = 0; i < TileManager.singleton.ActiveTileList.Count; i++)
         {
-            Tile tile = TileManager.singleton.GetActiveTileList()[i];
+            Tile tile = TileManager.singleton.ActiveTileList[i];
             float distance = Vector2.Distance(tile.transform.position, touchPosition);
 
             if (distance < nearestDistance)
             {
                 nearestDistance = distance;
-                firstTile = tile;
+                _firstTile = tile;
             }
         }
 
-        if (nearestDistance > minimumSelectionDistance)
+        if (nearestDistance > _minimumSelectionDistance)
         {
-            firstTile = null;
+            _firstTile = null;
             return;
         }
 
-        currentEntity = firstTile.GetEntity();
-        currentEntity?.Select();
+        _currentEntity = _firstTile.Entity;
+        _currentEntity?.Select();
     }
 
     /// <summary>
@@ -139,11 +139,11 @@ public class Selector : MonoSingleton<Selector>
     /// </summary>
     private void MoveCurrentEntity()
     {
-        if (currentEntity)
+        if (_currentEntity)
         {
-            Vector3 touchPosition = Camera.main.ScreenToWorldPoint(touch.position);
+            Vector3 touchPosition = Camera.main.ScreenToWorldPoint(_touch.position);
             Vector2 entityPosition = new Vector3(touchPosition.x, touchPosition.y, 0);
-            currentEntity.transform.position = entityPosition;
+            _currentEntity.transform.position = entityPosition;
         }
     }
 
@@ -157,25 +157,25 @@ public class Selector : MonoSingleton<Selector>
     /// </summary>
     private void SelectLastTile()
     {
-        Vector3 touchPosition = Camera.main.ScreenToWorldPoint(touch.position);
+        Vector3 touchPosition = Camera.main.ScreenToWorldPoint(_touch.position);
         float nearestDistance = float.MaxValue;
 
-        for (int i = 0; i < TileManager.singleton.GetActiveTileList().Count; i++)
+        for (int i = 0; i < TileManager.singleton.ActiveTileList.Count; i++)
         {
-            Tile tile = TileManager.singleton.GetActiveTileList()[i];
+            Tile tile = TileManager.singleton.ActiveTileList[i];
             float distance = Vector2.Distance(tile.transform.position, touchPosition);
 
             if (distance < nearestDistance)
             {
                 nearestDistance = distance;
-                lastTile = tile;
+                _lastTile = tile;
             }
         }
 
-        if (nearestDistance > minimumSelectionDistance || firstTile == lastTile)
+        if (nearestDistance > _minimumSelectionDistance || _firstTile == _lastTile)
         {
-            lastTile = null;
-            currentEntity?.ResetPosition();
+            _lastTile = null;
+            _currentEntity?.ResetPosition();
             return;
         }
     }
@@ -191,45 +191,45 @@ public class Selector : MonoSingleton<Selector>
     /// </summary>
     private void HandleEntityPlacement()
     {
-        if (lastTile)
+        if (_lastTile)
         {
-            if (!lastTile.GetIsFull())
+            if (!_lastTile.IsFull)
             {
-                firstTile.Clear();
-                lastTile.SetEntity(currentEntity);
-                currentEntity?.Deselect();
-                currentEntity = null;
+                _firstTile.Clear();
+                _lastTile.Entity = _currentEntity;
+                _currentEntity?.DeSelect();
+                _currentEntity = null;
 
-                AudioManager.singleton.PlaySound("ChangeSFX");
+                AudioManager.singleton.PlaySound("Change");
             }
             else
             {
-                if (lastTile.GetEntity().GetEntityLevel() == currentEntity.GetEntityLevel())
+                if (_lastTile.Entity.EntityLevel == _currentEntity.EntityLevel)
                 {
-                    firstTile.Clear();
-                    lastTile.SetEntity(currentEntity);
-                    currentEntity.Deselect();
-                    currentEntity = null;
+                    _firstTile.Clear();
+                    _lastTile.Entity = _currentEntity;
+                    _currentEntity.DeSelect();
+                    _currentEntity = null;
 
-                    ParticleManager.singleton.PlayParticleAtPoint(lastTile.transform.position);
+                    ParticleManager.singleton.PlayParticleAtPoint(_lastTile.transform.position);
 
-                    AudioManager.singleton.PlaySound("SparkleSFX");
+                    AudioManager.singleton.PlaySound("Sparkle");
 
                     RequestManager.singleton.ControlRequestButton();
                 }
                 else
                 {
-                    Entity firstTileEntity = firstTile.GetEntity();
+                    Entity firstTileEntity = _firstTile.Entity;
 
-                    firstTile.Clear();
-                    firstTile.SetEntity(lastTile.GetEntity());
+                    _firstTile.Clear();
+                    _firstTile.Entity = _lastTile.Entity;
 
-                    lastTile.Clear();
-                    lastTile.SetEntity(firstTileEntity);
-                    currentEntity.Deselect();
-                    currentEntity = null;
+                    _lastTile.Clear();
+                    _lastTile.Entity = firstTileEntity;
+                    _currentEntity.DeSelect();
+                    _currentEntity = null;
 
-                    AudioManager.singleton.PlaySound("ChangeSFX");
+                    AudioManager.singleton.PlaySound("Change");
                 }
             }
         }
@@ -242,7 +242,7 @@ public class Selector : MonoSingleton<Selector>
     /// </summary>
     public void ProduceEntity()
     {
-        randomTileCallCount = 0;
+        _randomTileCallCount = 0;
 
         Tile randomTile = GetRandomTile();
         if (!randomTile)
@@ -251,11 +251,11 @@ public class Selector : MonoSingleton<Selector>
         }
 
         Entity generatedEntity = randomTile ?
-            Instantiate(primitiveEntityPrefab, randomTile.transform) : null;
-        randomTile?.SetEntity(generatedEntity);
+            Instantiate(_primitiveEntityPrefab, randomTile.transform) : null;
+        randomTile.Entity = generatedEntity;
 
         ParticleManager.singleton.PlayParticleAtPoint(randomTile.transform.position);
-        AudioManager.singleton.PlaySound("PopSFX");
+        AudioManager.singleton.PlaySound("Pop");
 
         RequestManager.singleton.ControlRequestButton();
     }
@@ -268,18 +268,18 @@ public class Selector : MonoSingleton<Selector>
     /// <returns></returns>
     private Tile GetRandomTile()
     {
-        if (randomTileCallCount < TileManager.singleton.GetActiveTileList().Count)
+        if (_randomTileCallCount < TileManager.singleton.ActiveTileList.Count)
         {
-            Tile randomTile = TileManager.singleton.GetActiveTileList()[Random.Range(0, TileManager.singleton.GetActiveTileList().Count)];
-            if (randomTile.GetIsFull())
+            Tile randomTile = TileManager.singleton.ActiveTileList[Random.Range(0, TileManager.singleton.ActiveTileList.Count)];
+            if (randomTile.IsFull)
             {
-                randomTileCallCount++;
+                _randomTileCallCount++;
                 return GetRandomTile();
             }
-            randomTileCallCount++;
+            _randomTileCallCount++;
             return randomTile;
         }
-        randomTileCallCount++;
+        _randomTileCallCount++;
         return null;
     }
 }

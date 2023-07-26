@@ -7,21 +7,21 @@ public class RequestButton : MonoBehaviour
 {
     [Header("Display")]
     [SerializeField]
-    private Image requestImage;
+    private Image _requestImage;
     [SerializeField]
-    private Image rightDeliverDisplayer;
+    private Image _rightDeliverDisplayer;
 
-    private Button buttonComponent;
+    private Button _buttonComponent;
 
-    private Human humanIconInButton;
+    private Human _humanIconInButton;
 
-    private Entity requestEntity;
+    private Entity _requestEntity;
 
     private void Awake()
     {
-        buttonComponent = GetComponent<Button>();
-        humanIconInButton = GetComponentInChildren<Human>();
-        buttonComponent.onClick.AddListener(() =>
+        _buttonComponent = GetComponent<Button>();
+        _humanIconInButton = GetComponentInChildren<Human>();
+        _buttonComponent.onClick.AddListener(() =>
         {
             SetRequest();
         });
@@ -36,17 +36,17 @@ public class RequestButton : MonoBehaviour
 
     private void Request()
     {
-        requestEntity = RequestManager.singleton.GetRequestEntity();
-        requestImage.sprite = requestEntity.GetSprite();
-        humanIconInButton.RegenerateHuman();
+        _requestEntity = RequestManager.singleton.GetRequestEntity();
+        _requestImage.sprite = _requestEntity.Sprite;
+        _humanIconInButton.RegenerateHuman();
     }
 
     public void SetRequest()
     {
-        if (RequestManager.singleton.SetRequest(requestEntity, transform))
+        if (RequestManager.singleton.SetRequest(_requestEntity, transform))
         {
             //Debug.Log("Request True!");
-            RequestManager.singleton.DisplayRequest(requestEntity.GetRequestSprite());
+            RequestManager.singleton.DisplayRequest(_requestEntity.RequestSprite);
             StopCoroutine(ReRequestRoutine());
             StartCoroutine(ReRequestRoutine());
         }
@@ -102,12 +102,12 @@ public class RequestButton : MonoBehaviour
     /// <param name="value"></param>
     private void ChangeButtonInteractibility(bool value)
     {
-        buttonComponent.interactable = value;
+        _buttonComponent.interactable = value;
     }
 
     public void ControlRequest()
     {
-        if (RequestManager.singleton.ContolRequest(requestEntity))
+        if (RequestManager.singleton.ContolRequest(_requestEntity))
         {
             ChangeDeliverIconVisibility(1);
         }
@@ -126,13 +126,13 @@ public class RequestButton : MonoBehaviour
 
     private IEnumerator ChangeDeliverIconVisibilityRoutine(float value)
     {
-        while (Mathf.Abs(rightDeliverDisplayer.fillAmount - value) > 0.01f)
+        while (Mathf.Abs(_rightDeliverDisplayer.fillAmount - value) > 0.01f)
         {
-            rightDeliverDisplayer.fillAmount =
-                Mathf.MoveTowards(rightDeliverDisplayer.fillAmount, value, Time.deltaTime * 4);
+            _rightDeliverDisplayer.fillAmount =
+                Mathf.MoveTowards(_rightDeliverDisplayer.fillAmount, value, Time.deltaTime * 4);
             yield return null;
         }
 
-        rightDeliverDisplayer.fillAmount = value;
+        _rightDeliverDisplayer.fillAmount = value;
     }
 }

@@ -143,5 +143,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c3c5d077778069841b333189e289e814, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  emptyTileSprite: {fileID: 21300000, guid: d71d18d4686edab4a8c6b225fdaa9c6f, type: 3}
-  fullTileSprite: {fileID: 21300000, guid: 03bd6f3aba9453247a6122d2cbe58790, type: 3}
+  _emptyTileSprite: {fileID: 21300000, guid: d71d18d4686edab4a8c6b225fdaa9c6f, type: 3}
+  _fullTileSprite: {fileID: 21300000, guid: 03bd6f3aba9453247a6122d2cbe58790, type: 3}

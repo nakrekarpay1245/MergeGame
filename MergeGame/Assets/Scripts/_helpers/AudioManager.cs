@@ -6,31 +6,31 @@ using UnityEngine.UI;
 public class AudioManager : MonoSingleton<AudioManager>
 {
     [SerializeField]
-    private int maximumSoundCount = 10;
+    private int _maximumSoundCount = 10;
     [SerializeField]
-    private float masterVolume = 1f;
+    private float _masterVolume = 1f;
     [SerializeField]
-    private bool isAudioSourceMuted = false;
+    private bool _isAudioSourceMuted = false;
 
     [SerializeField]
-    private List<AudioSource> audioSources = new List<AudioSource>();
+    private List<AudioSource> _audioSources = new List<AudioSource>();
     [SerializeField]
-    private List<Sound> soundList = new List<Sound>();
+    private List<Sound> _soundList = new List<Sound>();
 
     //[SerializeField]
     //private Slider musicSlider;
     //[SerializeField]
     //private Slider soundSlider;
     [SerializeField]
-    private Toggle soundToggle;
+    private Toggle _soundToggle;
 
     private void Awake()
     {
         // AudioSource componentlerini oluþtur
-        for (int i = 0; i < maximumSoundCount; i++)
+        for (int i = 0; i < _maximumSoundCount; i++)
         {
             AudioSource newSource = gameObject.AddComponent<AudioSource>();
-            audioSources.Add(newSource);
+            _audioSources.Add(newSource);
         }
     }
 
@@ -42,10 +42,10 @@ public class AudioManager : MonoSingleton<AudioManager>
         //    //musicSlider.value = masterVolume;
         //    soundSlider.value = masterVolume;
         //}
-        if (soundToggle != null)
+        if (_soundToggle != null)
         {
             //isAudioSourceMuted = SaveLoadManager.singleton.GetSoundMuted();
-            soundToggle.isOn = !isAudioSourceMuted;
+            _soundToggle.isOn = !_isAudioSourceMuted;
         }
     }
 
@@ -60,11 +60,11 @@ public class AudioManager : MonoSingleton<AudioManager>
     {
         // Find audio source which is not playing
         AudioSource activeSource = null;
-        for (int i = 0; i < audioSources.Count; i++)
+        for (int i = 0; i < _audioSources.Count; i++)
         {
-            if (!audioSources[i].isPlaying)
+            if (!_audioSources[i].isPlaying)
             {
-                activeSource = audioSources[i];
+                activeSource = _audioSources[i];
                 break;
             }
         }
@@ -75,15 +75,15 @@ public class AudioManager : MonoSingleton<AudioManager>
             return;
         }
 
-        for (int i = 0; i < soundList.Count; i++)
+        for (int i = 0; i < _soundList.Count; i++)
         {
-            if (clipName == soundList[i].Name)
+            if (clipName == _soundList[i].Name)
             {
-                activeSource.mute = isAudioSourceMuted;
+                activeSource.mute = _isAudioSourceMuted;
 
-                activeSource.clip = soundList[i].Clip;
-                activeSource.volume = masterVolume * soundList[i].Volume;
-                activeSource.loop = soundList[i].Loop;
+                activeSource.clip = _soundList[i].Clip;
+                activeSource.volume = _masterVolume * _soundList[i].Volume;
+                activeSource.loop = _soundList[i].Loop;
                 activeSource.Play();
             }
         }
@@ -100,11 +100,11 @@ public class AudioManager : MonoSingleton<AudioManager>
     {
         // Find audio source which is not playing
         AudioSource activeSource = null;
-        for (int i = 0; i < audioSources.Count; i++)
+        for (int i = 0; i < _audioSources.Count; i++)
         {
-            if (!audioSources[i].isPlaying)
+            if (!_audioSources[i].isPlaying)
             {
-                activeSource = audioSources[i];
+                activeSource = _audioSources[i];
                 break;
             }
         }
@@ -115,10 +115,10 @@ public class AudioManager : MonoSingleton<AudioManager>
             return;
         }
 
-        activeSource.mute = isAudioSourceMuted;
+        activeSource.mute = _isAudioSourceMuted;
 
         activeSource.clip = clip;
-        activeSource.volume = masterVolume * volume;
+        activeSource.volume = _masterVolume * volume;
         activeSource.loop = loop;
         activeSource.Play();
     }
@@ -128,9 +128,9 @@ public class AudioManager : MonoSingleton<AudioManager>
     /// </summary>
     public void StopAllSounds()
     {
-        for (int i = 0; i < audioSources.Count; i++)
+        for (int i = 0; i < _audioSources.Count; i++)
         {
-            audioSources[i].Stop();
+            _audioSources[i].Stop();
         }
     }
 
@@ -152,10 +152,10 @@ public class AudioManager : MonoSingleton<AudioManager>
 
     public void ToggleMute(bool toogleValue)
     {
-        for (int i = 0; i < audioSources.Count; i++)
+        for (int i = 0; i < _audioSources.Count; i++)
         {
-            audioSources[i].mute = !audioSources[i].mute;
-            isAudioSourceMuted = audioSources[i].mute;
+            _audioSources[i].mute = !_audioSources[i].mute;
+            _isAudioSourceMuted = _audioSources[i].mute;
         }
 
         //SaveLoadManager.singleton.SetSoundMuted(audioSources[0].mute);
